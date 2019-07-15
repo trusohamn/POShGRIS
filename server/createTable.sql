@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS restaurant;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS restaurant;
 
 CREATE TABLE restaurant (
    restaurant_id serial PRIMARY KEY,
@@ -33,4 +33,9 @@ INSERT INTO users(username, password, email) values ('gris6', 'secret', 'salty6@
 
 INSERT INTO restaurant(restaurant_name) values ('Frisky pizzas');
 INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky pork', '$66.69', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky chicken', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky shrimp', '$66.69', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky beef', '$66.69', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky frog', '$66.69', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky noodles', '$66.69', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
 
