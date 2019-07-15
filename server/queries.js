@@ -35,7 +35,20 @@ const getProducts = (req, res) => {
   })
 }
 
+const createProduct = (req, res) => {
+  const { product_name, product_price, restaurant_id } = req.body
+
+  pool.query('INSERT INTO product(product_name, product_price, restaurant_id) values ($1, $2, $3);', [product_name, product_price, restaurant_id], (error, results) => {
+    if (error) {
+      return res.status(401).send(error.message)
+    }
+    res.status(201).send({message: 'Product added'})
+  })
+}
+
+
 module.exports = {
   createRestaurant,
-  getProducts
+  getProducts,
+  createProduct
 }

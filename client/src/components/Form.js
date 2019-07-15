@@ -22,8 +22,6 @@ function Form() {
   return (
     <form id="login-form" onSubmit={submitHandler}>
       <input type="text" name="restaurant_name" placeholder="Restaurant Name" />
-
-
     </form>
   );
 }

@@ -17,6 +17,7 @@ app.use(express.urlencoded({
 }))
 
 app.post('/api/restaurants', db.createRestaurant);
+app.post('/api/products', db.createProduct);
 app.get('/api/products', db.getProducts);
 
 
