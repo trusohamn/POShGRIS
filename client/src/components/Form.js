@@ -4,7 +4,9 @@ function Form() {
   function submitHandler(e) {
     e.preventDefault();
     const data = new URLSearchParams();
+    console.log(e.target);
     for (const pair of new FormData(e.target)) {
+      console.log(pair[0], pair[1]);
       data.append(pair[0], pair[1]);
     }
     console.log(data);
@@ -19,7 +21,7 @@ function Form() {
 
   return (
     <form id="login-form" onSubmit={submitHandler}>
-      <input type="text" id="restaurant-name" placeholder="Restaurant Name" />
+      <input type="text" name="restaurant_name" placeholder="Restaurant Name" />
 
 
     </form>

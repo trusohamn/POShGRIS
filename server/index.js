@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 8000; 
 const cors = require('cors');
+const db = require('./queries');
 
 const corsOption = {
  origin: 'http://localhost:3000',  // switch in production !!!!
@@ -15,10 +16,7 @@ app.use(express.urlencoded({
   extended:true
 }))
 
-app.post('/api/restaurants', (req,res) => {
-  console.log(req.body); 
-  res.send({message: 'post request recieved'}); 
-});
+app.post('/api/restaurants', db.createRestaurant);
 
 
 app.listen(port, () => console.log(`listening on port ${port}`)); 
