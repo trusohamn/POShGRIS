@@ -18,10 +18,12 @@ const pool = new Pool(connectionSettings);
 const createRestaurant = (req, res) => {
   const { restaurant_name } = req.body
 
-  pool.query('INSERT INTO restaurant(restaurant_name) values ($1);', [restaurant_name], (error, results) => {
+  pool.query('INSERT INTO restaurant(restaurant_name) values ($1) RETURNING restaurant_id;', [restaurant_name], (error, results) => {
     if (error) {
       return res.status(401).send(error.message)
     }
+    console.log(results.rows[0].restaurant_id);
+    res.cookie('restaurant_id', results.rows[0].restaurant_id);
     res.status(201).send({message: 'Restaurant added'})
   })
 }
@@ -36,7 +38,8 @@ const getProducts = (req, res) => {
 }
 
 const createProduct = (req, res) => {
-  const { product_name, product_price, restaurant_id } = req.body
+  const { product_name, product_price } = req.body
+  const {restaurant_id} = req.cookie
 
   pool.query('INSERT INTO product(product_name, product_price, restaurant_id) values ($1, $2, $3);', [product_name, product_price, restaurant_id], (error, results) => {
     if (error) {
