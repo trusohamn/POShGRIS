@@ -26,6 +26,16 @@ const createRestaurant = (req, res) => {
   })
 }
 
+const getProducts = (req, res) => {
+  pool.query('SELECT * FROM PRODUCT', (error, results) => {
+    if (error) {
+      return res.status(401).send(error.message)
+    }
+    res.status(201).send({results: results.rows})
+  })
+}
+
 module.exports = {
-  createRestaurant
+  createRestaurant,
+  getProducts
 }

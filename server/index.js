@@ -17,6 +17,9 @@ app.use(express.urlencoded({
 }))
 
 app.post('/api/restaurants', db.createRestaurant);
+app.get('/api/products', db.getProducts);
+
+
 
 
 app.listen(port, () => console.log(`listening on port ${port}`)); 
