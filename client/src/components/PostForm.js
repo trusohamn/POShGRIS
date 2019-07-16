@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 function PostForm(props) {
   function submitHandler(e) {
@@ -9,20 +9,25 @@ function PostForm(props) {
       console.log(pair[0], pair[1]);
       data.append(pair[0], pair[1]);
     }
+    console.log('submitting form');
     console.log(data);
-    fetch('http://localhost:8000' + props.apiPath, {
-      method: 'POST',
-      credentials: 'include',
+    fetch("http://localhost:8000" + props.apiPath, {
+      method: "POST",
+      credentials: "include",
       body: data
     })
-    .then(res => (res.json()))
-    .then(res => console.log(res)); 
+      .then(res => res.json())
+      .then(res => console.log(res));
   }
-
 
   return (
     <form id="login-form" onSubmit={submitHandler}>
-      <input type="text" name="restaurant_name" placeholder="Restaurant Name" />
+      {props.inputs.map(e => {
+        return (
+          <input type={e.type} name={e.name} placeholder={e.placeholder} />
+        );
+      })}
+      <input type='submit'></input>
     </form>
   );
 }

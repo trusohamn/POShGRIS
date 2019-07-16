@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import Products from "../components/Products";
+import PostForm from '../components/PostForm';
 
 function Product() {
   const context = useContext(AppContext);
@@ -8,17 +9,16 @@ function Product() {
     context.getProducts();
   }, []);
 
-  const addNewProduct = (e) => {
-    
-  }
+  const inputs = [
+    { type: "text", name: "product_name", placeholder: "Product Name" },
+    { type: "text", name: "product_price", placeholder: "Product Price" }
+  ];
+
 
   return (
     <div>
       <Products />
-      <form onSubmit={addNewProduct}>
-        <input type="text" name="product_name" />
-        <input type="text" name="product_price" />
-      </form>
+    <PostForm apiPath="/api/products" inputs={inputs} />
     </div>
   );
 }
