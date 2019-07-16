@@ -7,12 +7,36 @@ const Ticket = props => {
   const [ticketData, setTicketData] = useState(null);
 
   useEffect(() => {
-    getFetch(`/api/tickets/${ticket_id}`, (err, res) => setTicketData(res));
+    getFetch(`/api/tickets/${ticket_id}`, (err, res) =>
+      setTicketData(res.results)
+    );
   }, []);
 
   return (
     <div>
-      <p>{ticket_id}</p>
+      <p>{JSON.stringify(ticketData)}</p>
+      {ticketData ? 
+      
+      <table>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+        </tr>
+        <tbody>
+            
+        {ticketData.map(e => {
+            return (<tr>
+            <td>{e.product_name}</td>
+            <td>{e.product_price}</td>
+            <td>{e.quantity}</td>
+          </tr>);
+        })}
+        </tbody>
+      </table>
+    : 
+    <p>Loading...</p>
+    }
     </div>
   );
 };
