@@ -1,26 +1,29 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-      "start": "node index.js",
-      "heroku-postbuild": "npm install --production",
-      "docker-getPostgres": "docker pull postgres",
-      "docker-postgres": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v `pwd`/volumes/postgres:/var/lib/postgresql/data postgres",
-      "postgres-stop": "docker stop pg-docker",
-      "setup-postgres": "npm run docker-postgres && npm run reset_db",
-      "reset_db": "docker exec -i pg-docker psql -U postgres < createTable.sql"
-  },
-  "dependencies": {
-      "dotenv": "^8.0.0",
-      "express": "^4.17.1",
-      "nodemon": "^1.19.1",
-      "pg": "^7.11.0"
-  },
-  "engines": {
-      "node": "10.15.3",
-      "npm": "6.4.1"
-  }
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "node index.js",
+        "restart": "nodemon index.js",
+        "heroku-postbuild": "npm install --production",
+        "docker-getPostgres": "docker pull postgres",
+        "docker-postgres": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v `pwd`/volumes/postgres:/var/lib/postgresql/data postgres",
+        "postgres-stop": "docker stop pg-docker",
+        "setup-postgres": "npm run docker-postgres && npm run reset_db",
+        "reset_db": "docker exec -i pg-docker psql -U postgres < createTable.sql"
+    },
+    "dependencies": {
+        "cookie-parser": "^1.4.4",
+        "cors": "^2.8.5",
+        "dotenv": "^8.0.0",
+        "express": "^4.17.1",
+        "nodemon": "^1.19.1",
+        "pg": "^7.11.0"
+    },
+    "engines": {
+        "node": "10.15.3",
+        "npm": "6.4.1"
+    }
 }
