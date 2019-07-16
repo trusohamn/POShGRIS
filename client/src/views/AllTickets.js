@@ -1,22 +1,26 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import Ticket from "../components/Ticket";
+import {  Link } from 'react-router-dom';
+
 
 function AllTickets() {
-  
   const context = useContext(AppContext);
-    useEffect(() => {
-      context.getTickets();
-    }, []); 
+  useEffect(() => {
+    context.getTickets();
+  }, []);
 
   return (
     <div>
-      {context.tickets ? 
-          context.tickets.results.map(e => {
-            return <Ticket  ticketId={e.ticket_id} />
-          }): 
-          null  
-        }
+      {context.tickets
+        ? context.tickets.results.map(e => {
+            const path = "/ticket/" + e.ticket_id;
+            return (
+              <Link to={path}>
+                <div>{e.ticket_id}</div>
+              </Link>
+            );
+          })
+        : null}
     </div>
   );
 }

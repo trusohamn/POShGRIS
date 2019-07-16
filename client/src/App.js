@@ -5,6 +5,7 @@ import Signup from './views/Signup';
 import ProductList from './views/ProductList';
 import AllTickets from './views/AllTickets';
 import AppContextProvider from './context/AppContext';
+import Ticket from "./components/Ticket";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path="/signup" component={Signup} />
       <Route path="/products" component={ProductList} />
       <Route path="/all-tickets" component={AllTickets} />
+      <Route path="/ticket/:id" component={Ticket} />
     </Router>
       </div>
     </AppContextProvider>

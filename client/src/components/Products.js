@@ -12,8 +12,6 @@ function Products() {
   }, [])
 
 
-
-
   return (
     <div>
       <ul>
