@@ -45,27 +45,28 @@ const getTickets = (req, res) => {
     if (error) {
       return res.status(401).send(error.message);
     }
-    console.log(results.rows)
+    console.log(results.rows);
     res.status(201).send({ results: results.rows });
   });
 };
 
 const getTicketById = (req, res) => {
-    const ticket_id = req.params.id;
-    pool.query(`select pt.quantity, p.product_name, p.product_price from product_in_ticket as pt 
+  const ticket_id = req.params.id;
+  pool.query(
+    `select pt.quantity, p.product_name, p.product_price from product_in_ticket as pt 
     inner join product as p on pt.product_id = p.product_id
     where pt.ticket_id=$1 ;
-    `, 
+    `,
     [ticket_id],
     (error, results) => {
       if (error) {
         return res.status(401).send(error.message);
       }
-      console.log(results.rows)
+      console.log(results.rows);
       res.status(201).send({ results: results.rows });
-    });
-}
-
+    }
+  );
+};
 
 const createProduct = (req, res) => {
   const { product_name, product_price } = req.body;
@@ -83,10 +84,32 @@ const createProduct = (req, res) => {
   );
 };
 
+const addProductsToTicket = (req, res) => {
+  const products = JSON.parse(req.body.products);
+  console.log(products);
+  const ticket_id = req.params.id;
+  pool.query(
+    "DELETE FROM product_in_ticket WHERE ticket_id=$1;",
+    [ticket_id],
+    (error, results) => {
+      if (error) return res.status(401).send(error.message);
+      products.forEach(e => {
+        pool.query(
+          "INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ($1, $2, $3);",
+          [e.product_id, ticket_id, e.quantity],
+          (error, results) => {
+            if (error) return res.status(401).send(error.message);
+          });
+      });
+      res.status(201).send({ message: "Product added" });
+    });
+};
+
 module.exports = {
   createRestaurant,
   getProducts,
   createProduct,
   getTickets,
-  getTicketById
+  getTicketById,
+  addProductsToTicket
 };
