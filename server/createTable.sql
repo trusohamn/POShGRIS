@@ -30,7 +30,7 @@ CREATE TABLE ticket (
    table_id INTEGER,
    user_id INTEGER,
    ticket_status VARCHAR (20),
-   notes VARCHAR(200),
+   notes VARCHAR(400),
    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id),
    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
@@ -57,3 +57,7 @@ INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky 
 
 
 INSERT INTO ticket(restaurant_id, table_id, user_id) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'));
+
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'frisky pork'), '1', '2');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'frisky shrimp'), '1', '2');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'frisky noodles'), '1', '2');

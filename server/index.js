@@ -19,11 +19,11 @@ app.use(express.urlencoded({
 
 app.use(cookie_parser());
 
+app.get('/api/products', db.getProducts);
+app.get('/api/tickets', db.getTickets);
+app.get('/api/tickets/:id', db.getTicketById);
 app.post('/api/restaurants', db.createRestaurant);
 app.post('/api/products', db.createProduct);
-app.get('/api/products', db.getProducts);
-
-
 
 
 app.listen(port, () => console.log(`listening on port ${port}`)); 

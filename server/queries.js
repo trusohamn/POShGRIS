@@ -40,6 +40,33 @@ const getProducts = (req, res) => {
   });
 };
 
+const getTickets = (req, res) => {
+  pool.query("SELECT * FROM TICKET", (error, results) => {
+    if (error) {
+      return res.status(401).send(error.message);
+    }
+    console.log(results.rows)
+    res.status(201).send({ results: results.rows });
+  });
+};
+
+const getTicketById = (req, res) => {
+    const ticket_id = req.params.id;
+    pool.query(`select pt.quantity, p.product_name, p.product_price from product_in_ticket as pt 
+    inner join product as p on pt.product_id = p.product_id
+    where pt.ticket_id=$1 ;
+    `, 
+    [ticket_id],
+    (error, results) => {
+      if (error) {
+        return res.status(401).send(error.message);
+      }
+      console.log(results.rows)
+      res.status(201).send({ results: results.rows });
+    });
+}
+
+
 const createProduct = (req, res) => {
   const { product_name, product_price } = req.body;
   const { restaurant_id } = req.cookies;
@@ -59,5 +86,7 @@ const createProduct = (req, res) => {
 module.exports = {
   createRestaurant,
   getProducts,
-  createProduct
+  createProduct,
+  getTickets,
+  getTicketById
 };
