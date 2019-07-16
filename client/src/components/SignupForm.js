@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Form() {
+function SignupForm() {
   function submitHandler(e) {
     e.preventDefault();
     const data = new URLSearchParams();
@@ -26,4 +26,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default SignupForm;

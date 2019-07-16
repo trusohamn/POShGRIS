@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {AppContext} from '../context/AppContext';
+import Products from '../components/Products';
 
 function Product() {
 
@@ -13,10 +14,9 @@ function Product() {
   
   return (
     <div>
-      <ul>
-
-      </ul>
+      <Products />
     </div>
+   
   );
 }
 

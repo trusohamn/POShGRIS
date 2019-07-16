@@ -1,18 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useContext} from 'react';
+import {AppContext} from '../context/AppContext';
 
 
-function Form() {
 
-  const [data, setData] = useState(null); 
-  
-    useEffect(() => {
-        fetch('http://localhost:8000/api/products', {
-          method: 'GET'
-            })
-        .then(res => (res.json()))
-        .then(res => setData(res)); 
+function Products() {
 
-    }, [])
+  const context = useContext(AppContext);
+  useEffect(() => {
+
+    context.getProducts();
+  }, [])
 
 
 
@@ -20,8 +17,8 @@ function Form() {
   return (
     <div>
       <ul>
-        {data ? 
-        data.results.map(e => {
+        {context.products ? 
+        context.products.results.map(e => {
           return <li>{e.product_name}, {e.product_price}</li>;
         }): 
         null  
@@ -31,4 +28,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default Products;
