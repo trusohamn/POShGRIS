@@ -18,7 +18,6 @@ function App() {
           </ul>
         </div>
 
-
       <Route path="/signup" component={Signup} />
       <Route path="/products" component={ProductList} />
     </Router>

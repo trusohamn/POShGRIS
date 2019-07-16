@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SignupForm() {
+function PostForm(props) {
   function submitHandler(e) {
     e.preventDefault();
     const data = new URLSearchParams();
@@ -10,8 +10,9 @@ function SignupForm() {
       data.append(pair[0], pair[1]);
     }
     console.log(data);
-    fetch('http://localhost:8000/api/restaurants', {
+    fetch('http://localhost:8000' + props.apiPath, {
       method: 'POST',
+      credentials: 'include',
       body: data
     })
     .then(res => (res.json()))
@@ -26,4 +27,4 @@ function SignupForm() {
   );
 }
 
-export default SignupForm;
+export default PostForm;

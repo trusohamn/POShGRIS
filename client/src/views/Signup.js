@@ -1,13 +1,13 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {AppContext} from '../context/AppContext';
-import SignupForm from '../components/SignupForm';
+import PostForm from '../components/PostForm';
 
 function Signup() {
 
 
   return (
     <div>
-      <SignupForm />
+      <PostForm apiPath="/api/restaurants" />
     </div>
    
   );
