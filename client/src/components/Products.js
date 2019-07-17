@@ -18,7 +18,7 @@ function Products(props) {
         {context.products ? 
         context.products.results.map(e => {
           return ( props.isOrderView ? 
-            <li><a href="#">{e.product_name}, {e.product_price}</a></li>  :
+            <li onClick={props.addProductOnClick} className={e.product_id}>{e.product_name}, {e.product_price}</li>  :
             <li>{e.product_name}, {e.product_price}</li>)
         }): 
         null  
