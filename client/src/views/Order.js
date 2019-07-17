@@ -1,25 +1,28 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import PostForm from '../components/PostForm';
+import OrderForm from '../components/OrderForm';
 import Products from "../components/Products";
 
 function Order() {
-  const context = useContext(AppContext);
-
+  const context = useContext(AppContext); 
+  const [productsInTicket, setProductInTicket] = useState([]);
+  
   useEffect(() => {
     context.getProducts();
   }, []);
 
-  const inputs = [
-    { type: "text", name: "product_name", placeholder: "Product Name" },
-    { type: "text", name: "product_price", placeholder: "Product Price" }
-  ];
-
+  const addProductOnClick = (e) => {
+    console.log(e.target.className);
+    setProductInTicket([...productsInTicket, e.target.className])
+    console.log(productsInTicket);
+  }
+  
 
   return (
     <div>
-      <Products isOrderView={true} />
-    <PostForm apiPath="/api/products" inputs={inputs} />
+      <Products  addProductOnClick={addProductOnClick} isOrderView={true} />
+
+      <OrderForm />
     </div>
   );
 }
