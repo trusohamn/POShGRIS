@@ -4,15 +4,22 @@ import { AppContext } from "../context/AppContext";
 
 
 
-function RndTable() {
+function RndTable(props) {
   const context = useContext(AppContext);
 
   return (
     <Rnd
       // position={{ x: this.state.x, y: this.state.y }}
       onDragStop={(e, d) => {
-
-        console.log('e:', e, 'd:', d);
+        const modifiedTablesCoord = context.tablesCoords.map(e => {
+          if (e.table_id == props.table_id) {
+            e.x = d.x;
+            e.y = d.y;
+          };
+          return e ;
+        });
+  
+        context.setTablesCoords(modifiedTablesCoord);
       }}
       default={{
         x: 100,
