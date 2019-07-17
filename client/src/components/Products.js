@@ -3,7 +3,7 @@ import {AppContext} from '../context/AppContext';
 
 
 
-function Products() {
+function Products(props) {
 
   const context = useContext(AppContext);
   useEffect(() => {
@@ -17,7 +17,9 @@ function Products() {
       <ul>
         {context.products ? 
         context.products.results.map(e => {
-          return <li>{e.product_name}, {e.product_price}</li>;
+          return ( props.isOrderView ? 
+            <li><a href="#">{e.product_name}, {e.product_price}</a></li>  :
+            <li>{e.product_name}, {e.product_price}</li>)
         }): 
         null  
       }

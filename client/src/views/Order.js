@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import Products from "../components/Products";
 import PostForm from '../components/PostForm';
+import Products from "../components/Products";
 
-function Product() {
+function Order() {
   const context = useContext(AppContext);
+
   useEffect(() => {
     context.getProducts();
   }, []);
@@ -17,10 +18,10 @@ function Product() {
 
   return (
     <div>
-      <Products isOrderView={false} />
+      <Products isOrderView={true} />
     <PostForm apiPath="/api/products" inputs={inputs} />
     </div>
   );
 }
 
-export default Product;
+export default Order;

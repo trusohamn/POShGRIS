@@ -6,6 +6,7 @@ import ProductList from './views/ProductList';
 import AllTickets from './views/AllTickets';
 import AppContextProvider from './context/AppContext';
 import Ticket from "./components/Ticket";
+import Order from "./views/Order";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <li><Link to="/signup">Signup</Link></li>
             <li><Link to="/products">Products</Link></li>
             <li><Link to="/all-tickets">All Tickets</Link></li>
+            <li><Link to="/order">New Order</Link></li>
           </ul>
         </div>
 
@@ -25,6 +27,7 @@ function App() {
       <Route path="/products" component={ProductList} />
       <Route path="/all-tickets" component={AllTickets} />
       <Route path="/ticket/:id" component={Ticket} />
+      <Route path="/order" component={Order} />
     </Router>
       </div>
     </AppContextProvider>
