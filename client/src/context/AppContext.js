@@ -14,6 +14,9 @@ function AppContextProvider(props) {
   const [products, setProducts] = useState(null);
   const [tickets, setTickets] = useState(null);
   const [productsInTicket, setProductInTicket] = useState([]);
+  const [tables, setTables] = useState([]);
+  const [nextTableId, setNextTableId] = useState(1);
+  const [tablesCoords, setTablesCoords] = useState([]);
 
   const getProducts = () => {
     getFetch("/api/products", (err, res) => setProducts(res));
@@ -29,7 +32,13 @@ function AppContextProvider(props) {
     getTickets,
     tickets,
     productsInTicket,
-    setProductInTicket
+    setProductInTicket,
+    tables,
+    setTables,
+    nextTableId,
+    setNextTableId,
+    tablesCoords,
+    setTablesCoords
   };
 
   return (

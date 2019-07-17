@@ -1,14 +1,16 @@
-import React, {useState} from "react";
-import Table from '../components/RndTable';
-
+import React, {useContext} from "react";
+import RndTable from '../components/RndTable';
+import { AppContext } from "../context/AppContext";
 
 function RestaurantLayout() {
-  
-  const [tables, setTables] = useState([]);
 
+const context = useContext(AppContext);
+  
   const createNewTable = (e) => {
     console.log(e.target);
-    setTables([...tables, <Table/>]);
+    context.setTables([...context.tables, <RndTable table_id={context.nextTableId}/>]);
+    context.setTablesCoords([...context.tablesCoords, {table_id: context.nextTableId, x:0, y:0}]);
+    context.setNextTableId(context.nextTableId+1);
   }
 
   return (
@@ -22,7 +24,7 @@ function RestaurantLayout() {
         }}
         id="layoutContainer"
       >
-        {tables}
+        {context.tables}
         
       </div>
     </div>
