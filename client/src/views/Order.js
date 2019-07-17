@@ -5,7 +5,6 @@ import Products from "../components/Products";
 
 function Order() {
   const context = useContext(AppContext); 
-  const [productsInTicket, setProductInTicket] = useState([]);
   
   useEffect(() => {
     context.getProducts();
@@ -13,8 +12,8 @@ function Order() {
 
   const addProductOnClick = (e) => {
     console.log(e.target.className);
-    setProductInTicket([...productsInTicket, e.target.className])
-    console.log(productsInTicket);
+    context.setProductInTicket([...context.productsInTicket, e.target.className])
+    console.log(context.productsInTicket);
   }
   
 
@@ -22,7 +21,7 @@ function Order() {
     <div>
       <Products  addProductOnClick={addProductOnClick} isOrderView={true} />
 
-      <OrderForm />
+      <OrderForm/>
     </div>
   );
 }

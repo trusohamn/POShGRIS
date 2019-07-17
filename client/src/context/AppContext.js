@@ -13,6 +13,7 @@ export const getFetch = (apiPath, cb) => {
 function AppContextProvider(props) {
   const [products, setProducts] = useState(null);
   const [tickets, setTickets] = useState(null);
+  const [productsInTicket, setProductInTicket] = useState([]);
 
   const getProducts = () => {
     getFetch("/api/products", (err, res) => setProducts(res));
@@ -26,7 +27,9 @@ function AppContextProvider(props) {
     getProducts,
     products,
     getTickets,
-    tickets
+    tickets,
+    productsInTicket,
+    setProductInTicket
   };
 
   return (
