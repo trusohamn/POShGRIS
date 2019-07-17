@@ -85,8 +85,9 @@ const createProduct = (req, res) => {
 };
 
 const addProductsToTicket = (req, res) => {
+  console.log(req.body.products);
   const products = JSON.parse(req.body.products);
-  console.log(products);
+  console.log(products, '****************************');
   const ticket_id = req.params.id;
   pool.query(
     "DELETE FROM product_in_ticket WHERE ticket_id=$1;",
