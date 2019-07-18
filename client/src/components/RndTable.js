@@ -6,6 +6,7 @@ import { AppContext } from "../context/AppContext";
 
 function RndTable(props) {
   const context = useContext(AppContext);
+  const state = context.tablesCoords.find(e => e.table_id == props.table_id);
 
   return (
     <Rnd
@@ -37,7 +38,7 @@ function RndTable(props) {
         className="box"
         style={{ margin: 0, height: "100%", backgroundColor: "mistyrose", border: "1px solid black" }}
       >
-        {props.table_id}
+        {state.table_name}
 
       </div>
     </Rnd>

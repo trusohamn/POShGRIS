@@ -87,7 +87,6 @@ const createProduct = (req, res) => {
 const addProductsToTicket = (req, res) => {
   console.log(req.body.products);
   const products = JSON.parse(req.body.products);
-  console.log(products, '****************************');
   const ticket_id = req.params.id;
   pool.query(
     "DELETE FROM product_in_ticket WHERE ticket_id=$1;",
@@ -108,16 +107,17 @@ const addProductsToTicket = (req, res) => {
 
 const createBord = (req, res) => {
   const { restaurant_id } = req.cookies;
+  const table_name = req.body.table_name;
   const x = 0;
   const y = 0;
   pool.query(
-    "INSERT INTO bord(restaurant_id, x, y) values  ($1, $2, $3)  RETURNING table_id;",
-    [restaurant_id, x, y],
+    "INSERT INTO bord(restaurant_id, x, y, table_name) values  ($1, $2, $3, $4)  RETURNING table_id;",
+    [restaurant_id, x, y, table_name],
     (error, results) => {
       if (error) {
         return res.status(401).send(error.message);
       }
-      res.status(201).send({ message: "Bord added", table_id: results.rows[0].table_id, x, y });
+      res.status(201).send({ message: "Bord added", table_id: results.rows[0].table_id, x, y, table_name });
     }
   );
 };
@@ -131,22 +131,25 @@ const getBords = (req, res) => {
   });
 };
 
-const updateBord = (req, res) => {
-  const { x, y } = req.body;
-  const { restaurant_id } = req.cookie;
-  const table_id = req.params.id;
-  console.log(table_id, restaurant_id, x, y)
+const updateBords = (req, res) => {
+  //const { restaurant_id } = req.cookie;
+  const restaurant_id = 1;
+  console.log(req.body.bords);
+  const bords = JSON.parse(req.body.bords);
   pool.query(
-    "UPDATE BORD SET x = $1, y = $2 WHERE table_id = $4 AND restaurant_id=$3;",
-    [x, y, restaurant_id, table_id],
+    "DELETE FROM bord;", // add restaurant_id so that you only delete 1 restaurants tables thank you peter cheers!!!!!!!!!!!!!!!
     (error, results) => {
-      if (error) {
-        return res.status(401).send(error.message);
-      }
-      const message = results.rowCount == 0 ? "nothing updated" : "bord updated"
-      res.status(201).send({ message });
-    }
-  );
+      if (error) return res.status(401).send(error.message);
+      bords.forEach(e => {
+        pool.query(
+          "INSERT INTO bord(x, y, table_name, restaurant_id) values ($1, $2, $3, $4);",
+          [e.x, e.y, e.table_name, restaurant_id],
+          (error, results) => {
+            if (error) return res.status(401).send(error.message);
+          });
+      });
+      res.status(201).send({ message: "Layout changed" });
+    });
 };
 
 
@@ -159,5 +162,5 @@ module.exports = {
   addProductsToTicket,
   getBords,
   createBord,
-  updateBord
+  updateBords
 };

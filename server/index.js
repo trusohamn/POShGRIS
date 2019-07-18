@@ -31,7 +31,7 @@ app.post('/api/products', db.createProduct);
 
 app.get('/api/bord', db.getBords);
 app.post('/api/bord', db.createBord);
-app.post('/api/bord/:id', db.updateBord);
+app.put('/api/bord', db.updateBords);
 
 
 app.listen(port, () => console.log(`listening on port ${port}`)); 

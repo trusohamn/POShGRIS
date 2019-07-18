@@ -14,7 +14,7 @@ function RestaurantLayout() {
       .then(res => {
         context.setTablesCoords(res.results.map((e) => {
           console.log(e);
-          return { table_id: e.table_id, x: e.x, y: e.y };
+          return { ...e };
         }));
       });
   }, []);
@@ -26,7 +26,19 @@ function RestaurantLayout() {
     })
       .then(res => res.json())
       .then(res => {
-        context.setTablesCoords([...context.tablesCoords, { table_id: res.table_id, x: res.x, y: res.y }]);
+        context.setTablesCoords([...context.tablesCoords, { table_id: res.table_id, x: res.x, y: res.y, table_name: '1' }]);
+      });
+  }
+  const saveLayout = (e) => {
+    const data = new URLSearchParams();
+    data.append('bords', JSON.stringify(context.tablesCoords));
+    fetch('http://localhost:8000' + '/api/bord', {
+      method: "PUT",
+      credentials: "include",
+      body: data
+    })
+      .then(res => res.json())
+      .then(res => {
       });
   }
 
@@ -46,6 +58,8 @@ function RestaurantLayout() {
         })}
 
       </div>
+      <button onClick={saveLayout}>Save Layout</button>
+
     </div>
   )
 }

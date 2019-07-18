@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS product_in_ticket;
 DROP TABLE IF EXISTS ticket;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS restaurant;
 DROP TABLE IF EXISTS bord;
+DROP TABLE IF EXISTS restaurant;
 
 CREATE TABLE restaurant (
    restaurant_id serial PRIMARY KEY,
@@ -50,6 +50,7 @@ CREATE TABLE bord (
    restaurant_id INTEGER,
    x INTEGER,
    y INTEGER,
+   table_name VARCHAR (20),
    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
 
@@ -71,5 +72,5 @@ INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT p
 INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'frisky shrimp'), '1', '2');
 INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'frisky noodles'), '1', '2');
 
-INSERT INTO bord(restaurant_id, x, y) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), 200, 300);
-INSERT INTO bord(restaurant_id, x, y) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), 100, 100);
+INSERT INTO bord(restaurant_id, x, y, table_name) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), 200, 300, 'a great table');
+INSERT INTO bord(restaurant_id, x, y, table_name) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), 100, 100, '1');
