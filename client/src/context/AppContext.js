@@ -15,7 +15,6 @@ function AppContextProvider(props) {
   const [tickets, setTickets] = useState(null);
   const [productsInTicket, setProductInTicket] = useState([]);
   const [tables, setTables] = useState([]);
-  const [nextTableId, setNextTableId] = useState(1);
   const [tablesCoords, setTablesCoords] = useState([]);
 
   const getProducts = () => {
@@ -35,8 +34,6 @@ function AppContextProvider(props) {
     setProductInTicket,
     tables,
     setTables,
-    nextTableId,
-    setNextTableId,
     tablesCoords,
     setTablesCoords
   };

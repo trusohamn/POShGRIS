@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS ticket;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS restaurant;
+DROP TABLE IF EXISTS bord;
 
 CREATE TABLE restaurant (
    restaurant_id serial PRIMARY KEY,
@@ -44,6 +45,14 @@ CREATE TABLE product_in_ticket (
    FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id)
 );
 
+CREATE TABLE bord ( 
+   table_id serial PRIMARY KEY,
+   restaurant_id INTEGER,
+   x INTEGER,
+   y INTEGER,
+   FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
+);
+
 INSERT INTO users(username, password, email) values ('gris', 'secret', 'salty@salt.com');
 
 INSERT INTO restaurant(restaurant_name) values ('Frisky pizzas');
@@ -61,3 +70,6 @@ INSERT INTO ticket(restaurant_id, table_id, user_id) values ((SELECT restaurant_
 INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'frisky pork'), '1', '2');
 INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'frisky shrimp'), '1', '2');
 INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'frisky noodles'), '1', '2');
+
+INSERT INTO bord(restaurant_id, x, y) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), 200, 300);
+INSERT INTO bord(restaurant_id, x, y) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), 100, 100);

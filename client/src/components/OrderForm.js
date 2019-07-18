@@ -18,7 +18,7 @@ function OrderForm(props) {
     }, []);
     data.append('products', JSON.stringify(productList));
     console.log('submitting form');
-    fetch("http://localhost:8000" + '/api/tickets/1', {
+    fetch('http://localhost:8000' + '/api/tickets/1', {
       method: "POST",
       credentials: "include",
       body: data

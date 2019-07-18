@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import RndTable from '../components/RndTable';
 import { AppContext } from "../context/AppContext";
+import { regExpLiteral } from "@babel/types";
 
 function RestaurantLayout() {
   const context = useContext(AppContext);
@@ -10,9 +11,17 @@ function RestaurantLayout() {
   // }, []);
 
   const createNewTable = (e) => {
-    context.setTables([...context.tables, <RndTable table_id={context.nextTableId} />]);
-    context.setTablesCoords([...context.tablesCoords, { table_id: context.nextTableId, x: 0, y: 0 }]);
-    context.setNextTableId(context.nextTableId + 1);
+    fetch('http://localhost:8000' + '/api/bord', {
+      method: "POST",
+      credentials: "include"
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        context.setTablesCoords([...context.tablesCoords, { table_id: res.table_id, x: res.x, y: res.y }]);
+        context.setTables([...context.tables, <RndTable table_id={res.table_id} />]);
+      });
+
   }
 
   return (
