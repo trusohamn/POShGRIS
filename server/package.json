@@ -8,7 +8,7 @@
         "start": "node index.js",
         "restart": "nodemon index.js",
         "heroku-postbuild": "npm install --production",
-        "docker-exec": "docker exec -it pg-docker psql -U postgres", 
+        "docker-exec": "docker exec -it pg-docker psql -U postgres",
         "docker-getPostgres": "docker pull postgres",
         "docker-postgres": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v `pwd`/volumes/postgres:/var/lib/postgresql/data postgres",
         "docker-utan-mapping": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres",

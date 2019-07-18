@@ -16,14 +16,14 @@ function RndTable(props) {
             e.x = d.x;
             e.y = d.y;
           };
-          return e ;
+          return e;
         });
-  
+
         context.setTablesCoords(modifiedTablesCoord);
       }}
       default={{
-        x: 100,
-        y: 50,
+        x: context.tablesCoords.find(e => e.table_id == props.table_id).x,
+        y: context.tablesCoords.find(e => e.table_id == props.table_id).y,
         width: 100,
         height: 100
       }}
@@ -36,7 +36,10 @@ function RndTable(props) {
       <div
         className="box"
         style={{ margin: 0, height: "100%", backgroundColor: "mistyrose", border: "1px solid black" }}
-      />
+      >
+        {props.table_id}
+
+      </div>
     </Rnd>
   )
 };
