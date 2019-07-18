@@ -8,9 +8,13 @@ function OrderForm(props) {
 
   function submitHandler(e) {
     e.preventDefault();
+    const data1 = new URLSearchParams();
+    data1.append('table_id', document.querySelector('#table_id').value);
+    console.log(data1);
     fetch('http://localhost:8000' + '/api/tickets/', {
       method: "POST",
-      credentials: "include"
+      credentials: "include",
+      body: data1
     })
       .then(res => res.json())
       .then(res => {
@@ -25,6 +29,7 @@ function OrderForm(props) {
           return acc;
         }, []);
         data.append('products', JSON.stringify(productList));
+
         console.log('submitting form for ticket nr', ticket_id );
         fetch('http://localhost:8000' + `/api/tickets/${ticket_id}`, {
           method: "POST",
@@ -41,6 +46,8 @@ function OrderForm(props) {
   return (
     <div id="order-form-div">
       <form id="order-form" onSubmit={submitHandler}>
+        <p>Table #</p>
+        <input id="table_id" type="number" defaultValue={1} name="table_id"></input>
         <div id="productsInOrder">
           {context.productsInTicket.map(itemId => {
             const product = context.products.results.find(e => e.product_id == itemId);

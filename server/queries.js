@@ -160,6 +160,7 @@ const createTicket = (req, res) => {
   const { restaurant_id } = req.cookies;
   const { user_id } = req.cookies;
   const { table_id } = req.body;
+  console.log(req.body);
   pool.query(
     "INSERT INTO ticket(restaurant_id, user_id, table_id) values  ($1, $2, $3)  RETURNING ticket_id;",
     [restaurant_id, user_id, table_id],
