@@ -24,7 +24,6 @@ const createRestaurant = (req, res) => {
       if (error) {
         return res.status(401).send(error.message);
       }
-      console.log(results.rows[0].restaurant_id);
       res.cookie("restaurant_id", results.rows[0].restaurant_id);
       res.status(201).send({ message: "Restaurant added" });
     }
@@ -45,7 +44,6 @@ const getTickets = (req, res) => {
     if (error) {
       return res.status(401).send(error.message);
     }
-    console.log(results.rows);
     res.status(201).send({ results: results.rows });
   });
 };
@@ -62,7 +60,6 @@ const getTicketById = (req, res) => {
       if (error) {
         return res.status(401).send(error.message);
       }
-      console.log(results.rows);
       res.status(201).send({ results: results.rows });
     }
   );
@@ -85,7 +82,6 @@ const createProduct = (req, res) => {
 };
 
 const addProductsToTicket = (req, res) => {
-  console.log(req.body.products);
   const products = JSON.parse(req.body.products);
   const ticket_id = req.params.id;
   pool.query(
@@ -93,15 +89,22 @@ const addProductsToTicket = (req, res) => {
     [ticket_id],
     (error, results) => {
       if (error) return res.status(401).send(error.message);
-      products.forEach(e => {
-        pool.query(
-          "INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ($1, $2, $3);",
-          [e.product_id, ticket_id, e.quantity],
-          (error, results) => {
-            if (error) return res.status(401).send(error.message);
-          });
-      });
-      res.status(201).send({ message: "Product added" });
+      try {
+        products.forEach(e => {
+          pool.query(
+            "INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ($1, $2, $3);",
+            [e.product_id, ticket_id, e.quantity],
+            (error, results) => {
+              if (error) {
+                // throw new Error('something went wrong');
+                console.log('something went wrrrong');
+              }
+            });
+        });
+        res.status(201).send({ message: "Product added" });
+      } catch (err) {
+        return res.status(401).send(error.message);
+      }
     });
 };
 
@@ -134,7 +137,6 @@ const getBords = (req, res) => {
 const updateBords = (req, res) => {
   //const { restaurant_id } = req.cookie;
   const restaurant_id = 1;
-  console.log(req.body.bords);
   const bords = JSON.parse(req.body.bords);
   pool.query(
     "DELETE FROM bord;", // add restaurant_id so that you only delete 1 restaurants tables thank you peter cheers!!!!!!!!!!!!!!!
@@ -153,7 +155,7 @@ const updateBords = (req, res) => {
 };
 
 const createTicket = (req, res) => {
-  console.log('creating ticket');
+
   const { restaurant_id } = req.cookies;
   const { user_id } = req.cookies;
   const { table_id } = req.body;

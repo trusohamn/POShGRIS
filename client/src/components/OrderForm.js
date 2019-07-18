@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import TicketItem from './TicketItem';
 
 
 function OrderForm(props) {
@@ -39,16 +40,11 @@ function OrderForm(props) {
     <div id="order-form-div">
       <form id="order-form" onSubmit={submitHandler}>
         <div id="productsInOrder">
-          {context.productsInTicket.map(itemid => {
-            const product = context.products.results.find(e => e.product_id == itemid);
+          {context.productsInTicket.map(itemId => {
+            const product = context.products.results.find(e => e.product_id == itemId);
 
             return (
-              <div>
-                <input style={{ display: "none" }} className="product_id" value={itemid}></input>
-                <p>{product.product_name}</p>
-                <p>{product.product_price}</p>
-                <input className="quantity" type="number" min="1"></input>
-              </div>
+                <TicketItem product={product} itemId={itemId}/>
             )
           })}
         </div>

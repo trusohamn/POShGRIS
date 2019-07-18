@@ -19,7 +19,6 @@ function RndTable(props) {
           };
           return e;
         });
-
         context.setTablesCoords(modifiedTablesCoord);
       }}
       default={{
@@ -32,7 +31,7 @@ function RndTable(props) {
       minHeight={100}
       bounds="parent"
       enableResizing={false}
-      dragGrid={[8, 8]}
+      dragGrid={[10, 10]}
     >
       <div
         className="box"
