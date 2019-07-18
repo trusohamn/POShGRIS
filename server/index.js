@@ -23,6 +23,7 @@ app.get('/api/products', db.getProducts);
 
 app.get('/api/tickets', db.getTickets);
 app.get('/api/tickets/:id', db.getTicketById);
+app.post('/api/tickets', db.createTicket);
 app.post('/api/tickets/:id', db.addProductsToTicket);
 
 app.post('/api/restaurants', db.createRestaurant);

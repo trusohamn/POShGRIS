@@ -152,6 +152,23 @@ const updateBords = (req, res) => {
     });
 };
 
+const createTicket = (req, res) => {
+  console.log('creating ticket');
+  const { restaurant_id } = req.cookies;
+  const { user_id } = req.cookies;
+  const { table_id } = req.body;
+  pool.query(
+    "INSERT INTO ticket(restaurant_id, user_id, table_id) values  ($1, $2, $3)  RETURNING ticket_id;",
+    [restaurant_id, user_id, table_id],
+    (error, results) => {
+      if (error) {
+        return res.status(401).send(error.message);
+      }
+      res.status(201).send({ message: "Ticket created", ticket_id: results.rows[0].ticket_id });
+    }
+  );
+};
+
 
 module.exports = {
   createRestaurant,
@@ -162,5 +179,6 @@ module.exports = {
   addProductsToTicket,
   getBords,
   createBord,
-  updateBords
+  updateBords,
+  createTicket
 };

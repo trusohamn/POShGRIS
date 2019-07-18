@@ -14,7 +14,6 @@ const Ticket = props => {
 
   return (
     <div>
-      <p>{JSON.stringify(ticketData)}</p>
       {ticketData ? 
       
       <table>
