@@ -15,17 +15,17 @@ function App() {
 
       <div className="App">
     <Router>
-        <div>
-          <ul>
-            <li><Link to="/signup">Signup</Link></li>
-            <li><Link to="/products">Products</Link></li>
-            <li><Link to="/all-tickets">All Tickets</Link></li>
-            <li><Link to="/order">New Order</Link></li>
-            <li><Link to="/restaurantlayout">Restaurant Overview</Link></li>
+        <div className="nav-container">
+          <ul className="nav">
+            {/* <li className="nav-links"><Link to="/signup">Signup</Link></li> */}
+            <li className="nav-links"><Link to="/products">Products</Link></li>
+            <li className="nav-links"><Link to="/all-tickets">All Tickets</Link></li>
+            <li className="nav-links"><Link to="/order">New Order</Link></li>
+            <li className="nav-links"><Link to="/restaurantlayout">Restaurant Overview</Link></li>
           </ul>
         </div>
 
-      <Route path="/signup" component={Signup} />
+      {/* <Route path="/signup" component={Signup} /> */}
       <Route path="/products" component={ProductList} />
       <Route path="/all-tickets" component={AllTickets} />
       <Route path="/ticket/:id" component={Ticket} />

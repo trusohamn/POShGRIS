@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import './Normalize.css';
+@import './TabBar.css';
+@import './ProductList.css';
+      
+
+:root {
+        --main-gray-color: #454d66;
+        --main-green-color: #58b368; 
+      }
+
+body {
+  background-color: var( --main-gray-color);
+  font-family: 'Montserrat', sans-serif;
+}
