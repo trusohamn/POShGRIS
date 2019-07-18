@@ -123,27 +123,28 @@ const createBord = (req, res) => {
 };
 
 const getBords = (req, res) => {
-  pool.query("SELECT * FROM TICKET", (error, results) => {
+  pool.query("SELECT * FROM BORD", (error, results) => {
     if (error) {
       return res.status(401).send(error.message);
     }
-    console.log(results.rows);
     res.status(201).send({ results: results.rows });
   });
 };
 
 const updateBord = (req, res) => {
-  const { product_name, product_price } = req.body;
-  const { restaurant_id } = req.cookies;
-  console.log(product_name, product_price, restaurant_id);
+  const { x, y } = req.body;
+  const { restaurant_id } = req.cookie;
+  const table_id = req.params.id;
+  console.log(table_id, restaurant_id, x, y)
   pool.query(
-    "INSERT INTO product(product_name, product_price, restaurant_id) values ($1, $2, $3);",
-    [product_name, product_price, restaurant_id],
+    "UPDATE BORD SET x = $1, y = $2 WHERE table_id = $4 AND restaurant_id=$3;",
+    [x, y, restaurant_id, table_id],
     (error, results) => {
       if (error) {
         return res.status(401).send(error.message);
       }
-      res.status(201).send({ message: "Product added" });
+      const message = results.rowCount == 0 ? "nothing updated" : "bord updated"
+      res.status(201).send({ message });
     }
   );
 };
