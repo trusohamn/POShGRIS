@@ -17,7 +17,7 @@ function Product() {
 
   return (
     <div>
-      <Products />
+      <Products isOrderView={false} />
     <PostForm apiPath="/api/products" inputs={inputs} />
     </div>
   );

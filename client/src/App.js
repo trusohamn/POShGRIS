@@ -6,6 +6,8 @@ import ProductList from './views/ProductList';
 import AllTickets from './views/AllTickets';
 import AppContextProvider from './context/AppContext';
 import Ticket from "./components/Ticket";
+import Order from "./views/Order";
+import RestaurantLayout from "./views/RestaurantLayout";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             <li><Link to="/signup">Signup</Link></li>
             <li><Link to="/products">Products</Link></li>
             <li><Link to="/all-tickets">All Tickets</Link></li>
+            <li><Link to="/order">New Order</Link></li>
+            <li><Link to="/restaurantlayout">Restaurant Overview</Link></li>
           </ul>
         </div>
 
@@ -25,6 +29,8 @@ function App() {
       <Route path="/products" component={ProductList} />
       <Route path="/all-tickets" component={AllTickets} />
       <Route path="/ticket/:id" component={Ticket} />
+      <Route path="/order" component={Order} />
+      <Route path="/restaurantlayout" component={RestaurantLayout} />
     </Router>
       </div>
     </AppContextProvider>
