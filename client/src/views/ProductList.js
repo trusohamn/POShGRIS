@@ -5,6 +5,7 @@ import PostForm from '../components/PostForm';
 
 function Product() {
   const context = useContext(AppContext);
+
   useEffect(() => {
     context.getProducts();
   }, []);
@@ -14,11 +15,14 @@ function Product() {
     { type: "text", name: "product_price", placeholder: "Product Price" }
   ];
 
+  const afterPost = () => {
+    context.getProducts();
+  }
 
   return (
     <div>
       <Products isOrderView={false} />
-    <PostForm apiPath="/api/products" inputs={inputs} />
+      <PostForm apiPath="/api/products" inputs={inputs} afterPost={afterPost} />
     </div>
   );
 }

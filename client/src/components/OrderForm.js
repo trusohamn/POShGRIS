@@ -25,14 +25,16 @@ function OrderForm(props) {
           return acc;
         }, []);
         data.append('products', JSON.stringify(productList));
-        console.log('submitting form');
+        console.log('submitting form for ticket nr', ticket_id );
         fetch('http://localhost:8000' + `/api/tickets/${ticket_id}`, {
           method: "POST",
           credentials: "include",
           body: data
         })
           .then(res => res.json())
-          .then(res => console.log(res));
+          .then(res => {
+            context.setProductInTicket([]);
+            console.log(res)});
       });
   }
 
@@ -48,7 +50,7 @@ function OrderForm(props) {
             )
           })}
         </div>
-        <input type='submit' value="Checkout"></input>
+        <input type='submit' value="Send Order"></input>
 
       </form>
     </div>

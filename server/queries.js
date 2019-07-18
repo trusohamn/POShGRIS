@@ -91,6 +91,7 @@ const addProductsToTicket = (req, res) => {
       if (error) return res.status(401).send(error.message);
       try {
         products.forEach(e => {
+          console.log(e.product_id, ticket_id, e.quantity);
           pool.query(
             "INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ($1, $2, $3);",
             [e.product_id, ticket_id, e.quantity],
