@@ -25,7 +25,7 @@ function App() {
           </ul>
         </div>
 
-      {/* <Route path="/signup" component={Signup} /> */}
+      <Route path="/signup" component={Signup} />
       <Route path="/products" component={ProductList} />
       <Route path="/all-tickets" component={AllTickets} />
       <Route path="/ticket/:id" component={Ticket} />

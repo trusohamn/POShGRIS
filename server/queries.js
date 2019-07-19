@@ -114,11 +114,13 @@ const createBord = (req, res) => {
   const table_name = req.body.table_name;
   const x = 0;
   const y = 0;
+  console.log('createBord server: ',table_name);
   pool.query(
     "INSERT INTO bord(restaurant_id, x, y, table_name) values  ($1, $2, $3, $4)  RETURNING table_id;",
     [restaurant_id, x, y, table_name],
     (error, results) => {
       if (error) {
+        console.log(error);
         return res.status(401).send(error.message);
       }
       res.status(201).send({ message: "Bord added", table_id: results.rows[0].table_id, x, y, table_name });

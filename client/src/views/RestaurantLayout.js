@@ -20,16 +20,20 @@ function RestaurantLayout() {
   }, []);
 
   const createNewTable = (e) => {
+    const data_name = new URLSearchParams();
+    data_name.append('table_name', JSON.stringify(context.nextTicketName));
+
     fetch('http://localhost:8000' + '/api/bord', {
       method: "POST",
-      credentials: "include"
+      credentials: "include",
+      body: data_name
     })
       .then(res => res.json())
       .then(res => {
 
         context.setTablesCoords([...context.tablesCoords, {
           table_id: res.table_id, x: res.x, y: res.y,
-          table_name: context.nextTicketName
+          table_name: context.nextTicketName,
         }]);
         context.incrementNextTicketName();
       });
