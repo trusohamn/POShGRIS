@@ -8,7 +8,7 @@
   justify-content: space-around;
   align-items: center;
   margin: 0;
-  padding: 1rem;
+  padding: 1.3rem 1rem;
   list-style: none;
   background-color: var(--main-green-color);
 }

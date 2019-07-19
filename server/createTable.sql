@@ -48,8 +48,8 @@ CREATE TABLE product_in_ticket (
 CREATE TABLE bord ( 
    table_id serial PRIMARY KEY,
    restaurant_id INTEGER,
-   x INTEGER,
-   y INTEGER,
+   x DECIMAL,
+   y DECIMAL,
    table_name VARCHAR (20),
    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );

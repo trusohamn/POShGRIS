@@ -53,8 +53,11 @@ function RestaurantLayout() {
 
   return (
     <div className="layout-parent">
-      <button onClick={createNewTable}>Add Table</button>
-      <button onClick={saveLayout}>Save Layout</button>
+      <div className="btn-container">
+
+      <button className="layout-btn" onClick={createNewTable}>Add Table</button>
+      <button className="layout-btn" onClick={saveLayout}>Save Layout</button>
+      </div>
       <div className="layout-container"
         id="layoutContainer"
       >

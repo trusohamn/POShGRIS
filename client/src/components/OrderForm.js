@@ -50,8 +50,9 @@ function OrderForm(props) {
         <input id="table_id" type="number" defaultValue={1} name="table_id"></input>
         <div id="productsInOrder">
           {context.productsInTicket.map(itemId => {
+            console.log(itemId);
             const product = context.products.results.find(e => e.product_id == itemId);
-
+            console.log(product);
             return (
                 <TicketItem product={product} itemId={itemId}/>
             )

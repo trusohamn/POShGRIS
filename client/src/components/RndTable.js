@@ -34,8 +34,8 @@ function RndTable(props) {
       dragGrid={[10, 10]}
     >
       <div
-        className="box"
-        style={{ margin: 0, height: "100%", backgroundColor: "mistyrose", border: "1px solid black" }}
+        className="box layout-bord"
+        style={{}}
       >
         {state.table_name}
 

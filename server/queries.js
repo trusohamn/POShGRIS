@@ -146,12 +146,12 @@ const updateBords = (req, res) => {
     (error, results) => {
       if (error) return res.status(401).send(error.message);
       bords.forEach(e => {
-        const xInt = parseInt(e.x);
-        const yInt = parseInt(e.y);
-        console.log(xInt, yInt);
+        // const xInt = parseInt(e.x);
+        // const yInt = parse(e.y);
+        // console.log(xInt, yInt);
         pool.query(
           "INSERT INTO bord(x, y, table_name, restaurant_id) values ($1, $2, $3, $4);",
-          [xInt, yInt, e.table_name, restaurant_id],
+          [ e.x,e.y , e.table_name, restaurant_id],
           (error, results) => {
             if (error) return console.log(error);
           });
