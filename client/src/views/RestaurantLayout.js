@@ -52,14 +52,10 @@ function RestaurantLayout() {
   }
 
   return (
-    <div>
+    <div className="layout-parent">
       <button onClick={createNewTable}>Add Table</button>
-      <div
-        style={{
-          backgroundColor: "grey",
-          width: "80vw",
-          height: "70vh"
-        }}
+      <button onClick={saveLayout}>Save Layout</button>
+      <div className="layout-container"
         id="layoutContainer"
       >
         {context.tablesCoords.map((res) => {
@@ -67,7 +63,6 @@ function RestaurantLayout() {
         })}
 
       </div>
-      <button onClick={saveLayout}>Save Layout</button>
 
     </div>
   )

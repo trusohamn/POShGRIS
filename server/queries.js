@@ -146,11 +146,14 @@ const updateBords = (req, res) => {
     (error, results) => {
       if (error) return res.status(401).send(error.message);
       bords.forEach(e => {
+        const xInt = parseInt(e.x);
+        const yInt = parseInt(e.y);
+        console.log(xInt, yInt);
         pool.query(
           "INSERT INTO bord(x, y, table_name, restaurant_id) values ($1, $2, $3, $4);",
-          [e.x, e.y, e.table_name, restaurant_id],
+          [xInt, yInt, e.table_name, restaurant_id],
           (error, results) => {
-            if (error) return res.status(401).send(error.message);
+            if (error) return console.log(error);
           });
       });
       res.status(201).send({ message: "Layout changed" });
