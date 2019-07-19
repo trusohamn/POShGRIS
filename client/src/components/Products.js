@@ -13,17 +13,15 @@ function Products(props) {
 
 
   return (
-    <div>
-      <ul>
+    <div className="productlist-container">
         {context.products ? 
         context.products.results.map(e => {
           return ( props.isOrderView ? 
-            <li onClick={props.addProductOnClick} className={e.product_id}>{e.product_name}, {e.product_price}</li>  :
-            <li>{e.product_name}, {e.product_price}</li>)
+            <div className="product-card" onClick={props.addProductOnClick} className={e.product_id}> <h3>{e.product_name}</h3>, {e.product_price}</div>  :
+            <div className="product-card">{e.product_name}, {e.product_price}</div>)
         }): 
         null  
       }
-      </ul>
     </div>
   );
 }

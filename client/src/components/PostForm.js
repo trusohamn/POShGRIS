@@ -17,7 +17,10 @@ function PostForm(props) {
       body: data
     })
       .then(res => res.json())
-      .then(res => console.log(res));
+      .then(res => {
+        if (props.afterPost) props.afterPost(res);
+        console.log(res)
+      });
   }
 
   return (

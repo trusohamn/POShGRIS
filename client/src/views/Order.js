@@ -11,9 +11,7 @@ function Order() {
   }, []);
 
   const addProductOnClick = (e) => {
-    console.log(e.target.className);
     context.setProductInTicket([...context.productsInTicket, e.target.className])
-    console.log(context.productsInTicket);
   }
   
 
