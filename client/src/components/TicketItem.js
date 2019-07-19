@@ -2,7 +2,7 @@ import React from 'react'
 
 const TicketItem = (props) => {
   return (
-    <div>
+    <div className="items-in-ticket">
       <input style={{ display: "none" }} className="product_id" value={props.itemId}></input>
       <p>{props.product.product_name}</p>
       <p>{props.product.product_price}</p>

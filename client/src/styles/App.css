@@ -3,6 +3,9 @@
 @import './TabBar.css';
 @import './ProductList.css';
 @import './Restaurant-layout.css';
+@import './OrderForm.css';
+@import './AllTickets.css';
+@import './Ticket.css';
       
 
 :root {

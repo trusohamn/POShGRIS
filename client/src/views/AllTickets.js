@@ -10,13 +10,13 @@ function AllTickets() {
   }, []);
 
   return (
-    <div>
+    <div className="ticket-parent">
       {context.tickets
         ? context.tickets.results.map(e => {
             const path = "/ticket/" + e.ticket_id;
             return (
-              <Link to={path}>
-                <div>{e.ticket_id}</div>
+              <Link to={path} className="ticket-links">
+                <div className="allTickets-ids">{e.ticket_id}</div>
               </Link>
             );
           })

@@ -44,11 +44,13 @@ function OrderForm(props) {
   }
 
   return (
-    <div id="order-form-div">
+    <div className="orderForm-parent"id="order-form-div">
       <form id="order-form" onSubmit={submitHandler}>
-        <p>Table #</p>
+        <div className="table-num-holder">
+        <h3 className="table-number-title">Table #</h3>
         <input id="table_id" type="number" defaultValue={1} name="table_id"></input>
-        <div id="productsInOrder">
+        </div>
+        <div className="orderForm-items" id="productsInOrder">
           {context.productsInTicket.map(itemId => {
             console.log(itemId);
             const product = context.products.results.find(e => e.product_id == itemId);
@@ -58,8 +60,10 @@ function OrderForm(props) {
             )
           })}
         </div>
-        <input type='submit' value="Send Order"></input>
-
+        <div className="send-order-btn-holder">
+        <input type='submit' value="Send Order"
+        className="send-order-btn"></input>
+        </div>
       </form>
     </div>
   );

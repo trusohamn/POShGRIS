@@ -58,12 +58,12 @@ INSERT INTO users(username, password, email) values ('gris', 'secret', 'salty@sa
 
 INSERT INTO restaurant(restaurant_name) values ('Frisky pizzas');
 
-INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky pork', '$66.69', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky chicken', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky shrimp', '$66.69', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky beef', '$66.69', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky frog', '$66.69', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('frisky noodles', '$66.69', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh pork', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh chicken', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh shrimp', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh beef', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh frog', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh noodles', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
 
 
 INSERT INTO ticket(restaurant_id, table_id, user_id) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'));

@@ -16,8 +16,8 @@ const Ticket = props => {
     <div>
       {ticketData ? 
       
-      <table>
-        <tr>
+      <table className="ticket-table">
+        <tr className="ticket-tr">
           <th>Product</th>
           <th>Price</th>
           <th>Quantity</th>
