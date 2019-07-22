@@ -14,7 +14,9 @@ CREATE TABLE users (
    user_id serial PRIMARY KEY,
    username VARCHAR (50) UNIQUE NOT NULL,
    password VARCHAR (50) NOT NULL,
-   email VARCHAR (355) UNIQUE NOT NULL
+   role VARCHAR (50) NOT NULL, 
+   restaurant_id INTEGER,
+   FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
 
 CREATE TABLE product ( 
@@ -54,9 +56,10 @@ CREATE TABLE bord (
    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
 
-INSERT INTO users(username, password, email) values ('gris', 'secret', 'salty@salt.com');
-
 INSERT INTO restaurant(restaurant_name) values ('Frisky pizzas');
+
+INSERT INTO users(username, role, password, restaurant_id) values ('gris', 'admin', 'secret', '1');
+
 
 INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh pork', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
 INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh chicken', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
