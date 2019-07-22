@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import './Normalize.css';
+@import './TabBar.css';
+@import './ProductList.css';
+@import './Restaurant-layout.css';
+@import './OrderForm.css';
+@import './AllTickets.css';
+@import './Ticket.css';
+      
+
+:root {
+        --main-gray-color: #454d66;
+        --secondary-gray-color: #565e76;
+        --main-green-color: #58b368; 
+      }
+
+body {
+  background-color: var( --main-gray-color);
+  font-family: 'Montserrat', sans-serif;
+}
+
+button:focus {outline:0;}

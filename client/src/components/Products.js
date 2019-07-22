@@ -1,34 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useContext} from 'react';
+import {AppContext} from '../context/AppContext';
 
 
-function Form() {
 
-  const [data, setData] = useState(null); 
-  
-    useEffect(() => {
-        fetch('http://localhost:8000/api/products', {
-          method: 'GET'
-            })
-        .then(res => (res.json()))
-        .then(res => setData(res)); 
+function Products(props) {
 
-    }, [])
+  const context = useContext(AppContext);
+  useEffect(() => {
 
-
+    context.getProducts();
+  }, [])
 
 
   return (
-    <div>
-      <ul>
-        {data ? 
-        data.results.map(e => {
-          return <li>{e.product_name}, {e.product_price}</li>;
+    <div className="productlist-container">
+        {context.products ? 
+        context.products.results.map(e => {
+          return ( props.isOrderView ? 
+            <div className="product-card"> 
+            <div className={e.product_id} onClick={props.addProductOnClick} > <h3 className={e.product_id}>{e.product_name}</h3> <p className={e.product_id}>{e.product_price}</p></div></div>  :
+            <div className="product-card"><div><h3>{e.product_name}</h3><p>{e.product_price}</p></div></div>)
+           
         }): 
         null  
       }
-      </ul>
     </div>
   );
 }
 
-export default Form;
+export default Products;

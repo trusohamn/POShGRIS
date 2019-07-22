@@ -1,0 +1,24 @@
+.ticket-parent {
+ margin:1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 100px;
+  grid-gap: 1rem;
+}
+
+.ticket-parent > * {
+    background-color: var(--secondary-gray-color);
+}
+
+.allTickets-ids {
+  padding: 2rem;
+  font-size: 3rem;
+  color: white;
+  font-weight: bold;
+  max-width: 250;
+  text-align:center;
+}
+
+.ticket-links {
+  text-decoration: none;
+}
