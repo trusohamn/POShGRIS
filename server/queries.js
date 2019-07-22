@@ -57,22 +57,41 @@ const createRestaurant = (req, res) => {
     });
 };
 
+const auth = (user_id, requiredRole) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      "SELECT role, restaurant_id FROM users WHERE user_id=$1",
+      [user_id],
+      (error, results) => {
+        if (error) return reject(error);
+        const role = results.rows[0].role;
+        if (role != requiredRole) return reject('No access')
+        resolve(results.rows[0]);
+      }
+    )
+  })
+}
+
 const createUser = (req, res) => {
   const {
-    restaurant_id
+    user_id
   } = req.cookies;
-  const {
-    username,
-    password,
-    role
-  } = req.body;
 
-  queryCreateUser(restaurant_id, username, password, role, (err, user_id) => {
-    if (err) return res.status(401).send(err.message);
-    res.status(201).send({
-      message: "User added"
+  auth(user_id, 'admin')
+    .then(userData => {
+      const {
+        username,
+        password,
+        role
+      } = req.body;
+
+      queryCreateUser(userData.restaurant_id, username, password, role, (err, user_id) => {
+        if (err) return res.status(401).send(err.message);
+        res.status(201).send({
+          message: "User added"
+        });
+      });
     });
-  });
 };
 
 const getProducts = (req, res) => {
