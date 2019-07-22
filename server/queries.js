@@ -260,25 +260,32 @@ const createTicket = (req, res) => {
 };
 
 const login = (req, res) => {
-  const { username, password } = req.body;
+  const {
+    username,
+    password
+  } = req.body;
   pool.query(
     'select password, role, user_id from users where username=$1;',
     [username],
     (error, results) => {
-      if (error) {
-        return res.status(401).send({error: "user doesn't exist"});
+      if (error || results.rows.length === 0) {
+        return res.status(401).send({
+          error: "user doesn't exist"
+        });
       }
-      if(results.rows[0].password == password) {
+      if (results.rows[0].password == password) {
         res.cookie("user_id", results.rows[0].user_id);
         res.cookie("role", results.rows[0].role);
 
         res.status(201).send({
           message: "login successful"
         });
+      } else {
+        return res.status(401).send({
+          error: "wrong password"
+        });
       }
-      
-    }
-  );
+    });
 }
 
 module.exports = {
