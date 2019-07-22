@@ -21,13 +21,11 @@ function App() {
 
   useEffect(() => {
     auth.checkLogin();
-    console.log(auth);
   }, [])
 
   return (
     
       <AppContextProvider>
-
         <div className="App">
           <Router>
             <div className="nav-container">
@@ -40,6 +38,7 @@ function App() {
                   <li className="nav-links"><Link to="/order">New Order</Link></li>
                   <li className="nav-links"><Link to="/restaurantlayout">Restaurant Overview</Link></li>
                   <li className="nav-links"><Link to="/employees">Employees</Link></li>
+                  <li><button onClick={auth.logout}>Logout</button></li>
                 </ul>
 
                 :

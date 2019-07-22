@@ -5,7 +5,9 @@ import * as serviceWorker from './serviceWorker';
 import AuthContextProvider from './context/AuthContext';
  
 
-ReactDOM.render(<AuthContextProvider><App />
+ReactDOM.render(
+<AuthContextProvider>
+  <App />
   </AuthContextProvider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

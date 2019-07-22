@@ -4,7 +4,7 @@ import { AppContext } from "../context/AppContext";
 import { AuthContext } from "../context/AuthContext";
 import PostForm from "../components/PostForm";
 
-function Login() {
+function Login(props) {
   const auth = useContext(AuthContext); 
 
   const inputs = [
@@ -12,9 +12,14 @@ function Login() {
     { type: "password", name: "password", placeholder: "Password" },
   ];
 
+  const afterPost = () => {
+    auth.afterLogin();
+    props.history.push('/restaurantlayout');
+  }
+
   return (
     <div>
-      <PostForm apiPath="/api/login" inputs={inputs} afterPost={auth.afterLogin}/>
+      <PostForm apiPath="/api/login" inputs={inputs} afterPost={afterPost}/>
       <button><Link to="/signup">Signup</Link></button>
 
     </div>

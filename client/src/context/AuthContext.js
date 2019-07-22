@@ -28,13 +28,22 @@ function AuthContextProvider(props) {
     setRole(cookieParser().role);
   }
 
+  const logout = () => {
+    setLoggedIn(false); 
+    setUser_id(null);
+    setRole(null);
+    
+    document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  }
 
   const state = {
     loggedIn,
     user_id,
     role, 
     afterLogin,
-    checkLogin
+    checkLogin,
+    logout
   };
 
   return (
