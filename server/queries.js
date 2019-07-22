@@ -15,12 +15,14 @@ const connectionSettings =
 const pool = new Pool(connectionSettings);
 
 const queryCreateUser = (restaurant_id, username, password, role, cb) => {
+  console.log(restaurant_id, username, password, role);
   pool.query(
-    "INSERT INTO users values ($1, $2, $3, $4) RETURNING user_id;",
+    "INSERT INTO users (restaurant_id, username, password, role) values ($1, $2, $3, $4) RETURNING user_id;",
     [restaurant_id, username, password, role],
     (error, results) => {
       if (error) {
-        cb(error.message);
+        console.log(error);
+        return cb(error.message);
       }
       cb(null, results.rows[0].user_id);
     });
@@ -43,7 +45,6 @@ const createRestaurant = (req, res) => {
         return res.status(401).send(error.message);
       }
       const restaurant_id = results.rows[0].restaurant_id;
-      res.cookie("restaurant_id", restaurant_id);
 
       queryCreateUser(restaurant_id, username, password, role, (err, user_id) => {
         if (err) return res.status(401).send(error.message);
@@ -56,16 +57,23 @@ const createRestaurant = (req, res) => {
     });
 };
 
-// const createUser = (req, res) => {
-//   const {
-//     restaurant_id
-//   } = req.cookies;
-//   const {
-//     username,
-//     password,
-//     role
-//   } = req.body;
-// };
+const createUser = (req, res) => {
+  const {
+    restaurant_id
+  } = req.cookies;
+  const {
+    username,
+    password,
+    role
+  } = req.body;
+
+  queryCreateUser(restaurant_id, username, password, role, (err, user_id) => {
+    if (err) return res.status(401).send(err.message);
+    res.status(201).send({
+      message: "User added"
+    });
+  });
+};
 
 const getProducts = (req, res) => {
   pool.query("SELECT * FROM PRODUCT", (error, results) => {
@@ -251,6 +259,27 @@ const createTicket = (req, res) => {
   );
 };
 
+const login = (req, res) => {
+  const { username, password } = req.body;
+  pool.query(
+    'select password, role, user_id from users where username=$1;',
+    [username],
+    (error, results) => {
+      if (error) {
+        return res.status(401).send({error: "user doesn't exist"});
+      }
+      if(results.rows[0].password == password) {
+        res.cookie("user_id", results.rows[0].user_id);
+        res.cookie("role", results.rows[0].role);
+
+        res.status(201).send({
+          message: "login successful"
+        });
+      }
+      
+    }
+  );
+}
 
 module.exports = {
   createRestaurant,
@@ -262,5 +291,7 @@ module.exports = {
   getBords,
   createBord,
   updateBords,
-  createTicket
+  createTicket,
+  createUser,
+  login
 };

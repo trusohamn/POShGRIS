@@ -28,11 +28,15 @@ app.post('/api/tickets/:id', db.addProductsToTicket);
 
 app.post('/api/restaurants', db.createRestaurant);
 
+app.post('/api/users', db.createUser);
+
 app.post('/api/products', db.createProduct);
 
 app.get('/api/bord', db.getBords);
 app.post('/api/bord', db.createBord);
 app.put('/api/bord', db.updateBords);
+
+app.post('/api/login', db.login);
 
 
 app.listen(port, () => console.log(`listening on port ${port}`)); 
