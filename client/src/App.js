@@ -24,48 +24,50 @@ function App() {
   }, [])
 
   return (
-    
-      <AppContextProvider>
-        <div className="App">
-          <Router>
-            <div className="nav-container">
 
+    <AppContextProvider>
+      <div className="App">
+        <Router>
+          <div className="nav-container">
 
-              {auth.loggedIn ?
-                <ul className="nav">
-                  <li className="nav-links"><Link to="/products">Products</Link></li>
-                  <li className="nav-links"><Link to="/all-tickets">All Tickets</Link></li>
-                  <li className="nav-links"><Link to="/order">New Order</Link></li>
-                  <li className="nav-links"><Link to="/restaurantlayout">Restaurant Overview</Link></li>
-                  <li className="nav-links"><Link to="/employees">Employees</Link></li>
-                  <li><button onClick={auth.logout}>Logout</button></li>
-                </ul>
-
-                :
-                <ul className="nav">
-                  <li className="nav-links"><Link to="/login">Login</Link></li>
-                </ul>
-              }
-            </div>
 
             {auth.loggedIn ?
-              <Switch>
-                <Route path="/employees" component={Employees} />
-                <Route path="/products" component={ProductList} />
-                <Route path="/all-tickets" component={AllTickets} />
-                <Route path="/ticket/:id" component={Ticket} />
-                <Route path="/order" component={Order} />
-                <Route path="/restaurantlayout" component={RestaurantLayout} />
-              </Switch>
+              <ul className="nav">
+                <li className="nav-links"><Link to="/products">Products</Link></li>
+                <li className="nav-links"><Link to="/all-tickets">All Tickets</Link></li>
+                <li className="nav-links"><Link to="/order">New Order</Link></li>
+                <li className="nav-links"><Link to="/restaurantlayout">Restaurant Overview</Link></li>
+                <li className="nav-links"><Link to="/employees">Employees</Link></li>
+                <li><button onClick={auth.logout}>Logout</button></li>
+              </ul>
 
               :
-
-              <Route path="/login" component={Login} />
-
+              <ul className="nav">
+                <li className="nav-links"><Link to="/login">Login</Link></li>
+              </ul>
             }
-          </Router>
-        </div>
-      </AppContextProvider>
+          </div>
+
+          {auth.loggedIn ?
+            <Switch>
+              <Route path="/employees" component={Employees} />
+              <Route path="/products" component={ProductList} />
+              <Route path="/all-tickets" component={AllTickets} />
+              <Route path="/ticket/:id" component={Ticket} />
+              <Route path="/order" component={Order} />
+              <Route path="/restaurantlayout" component={RestaurantLayout} />
+            </Switch>
+
+            :
+            <Switch>
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+            </Switch>
+
+          }
+        </Router>
+      </div>
+    </AppContextProvider>
 
   );
 }

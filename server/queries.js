@@ -14,6 +14,26 @@ const connectionSettings =
   };
 const pool = new Pool(connectionSettings);
 
+const getRestaurantIdAndRole = (req, res, next) => {
+  const {
+    user_id
+  } = req.cookies;
+
+  pool.query(
+    "SELECT role, restaurant_id FROM users WHERE user_id=$1",
+    [user_id],
+    (error, results) => {
+      req.restaurant_id = null;
+      req.role = null;
+
+      if (error) return next(error);
+      req.role = results.rows[0].role;
+      req.restaurant_id = results.rows[0].restaurant_id;
+      next();
+    }
+  )
+}
+
 const queryCreateUser = (restaurant_id, username, password, role, cb) => {
   console.log(restaurant_id, username, password, role);
   pool.query(
@@ -57,56 +77,40 @@ const createRestaurant = (req, res) => {
     });
 };
 
-const auth = (user_id, requiredRole) => {
-  return new Promise((resolve, reject) => {
-    pool.query(
-      "SELECT role, restaurant_id FROM users WHERE user_id=$1",
-      [user_id],
-      (error, results) => {
-        if (error) return reject(error);
-        const role = results.rows[0].role;
-        if (role != requiredRole) return reject('No access')
-        resolve(results.rows[0]);
-      }
-    )
-  })
-}
-
 const createUser = (req, res) => {
+
+  if(req.role != 'admin')return res.status(401).send('no access');
+
   const {
-    user_id
-  } = req.cookies;
+    username,
+    password,
+    role
+  } = req.body;
 
-  auth(user_id, 'admin')
-    .then(userData => {
-      const {
-        username,
-        password,
-        role
-      } = req.body;
-
-      queryCreateUser(userData.restaurant_id, username, password, role, (err, user_id) => {
-        if (err) return res.status(401).send(err.message);
-        res.status(201).send({
-          message: "User added"
-        });
-      });
+  queryCreateUser(req.restaurant_id, username, password, role, (err, user_id) => {
+    if (err) return res.status(401).send(err.message);
+    res.status(201).send({
+      message: "User added"
     });
+  });
+
 };
 
 const getProducts = (req, res) => {
-  pool.query("SELECT * FROM PRODUCT", (error, results) => {
-    if (error) {
-      return res.status(401).send(error.message);
-    }
-    res.status(201).send({
-      results: results.rows
-    });
-  });
+
+      pool.query("SELECT * FROM PRODUCT WHERE restaurant_id=$1", [req.restaurant_id], (error, results) => {
+        if (error) {
+          return res.status(401).send(error.message);
+        }
+        res.status(201).send({
+          results: results.rows
+        });
+      });
 };
 
 const getTickets = (req, res) => {
-  pool.query("SELECT * FROM TICKET", (error, results) => {
+
+  pool.query("SELECT * FROM TICKET WHERE restaurant_id=$1", [req.restaurant_id],(error, results) => {
     if (error) {
       return res.status(401).send(error.message);
     }
@@ -115,15 +119,17 @@ const getTickets = (req, res) => {
     });
   });
 };
-
+// select pt.quantity, p.product_name, p.product_price from product_in_ticket as pt 
+//     inner join product as p on pt.product_id = p.product_id
+//     where pt.ticket_id=1  ;
 const getTicketById = (req, res) => {
   const ticket_id = req.params.id;
   pool.query(
     `select pt.quantity, p.product_name, p.product_price from product_in_ticket as pt 
     inner join product as p on pt.product_id = p.product_id
-    where pt.ticket_id=$1 ;
+    where pt.ticket_id=$1 and p.restaurant_id=$2 ;
     `,
-    [ticket_id],
+    [ticket_id, req.restaurant_id],
     (error, results) => {
       if (error) {
         return res.status(401).send(error.message);
@@ -140,13 +146,10 @@ const createProduct = (req, res) => {
     product_name,
     product_price
   } = req.body;
-  const {
-    restaurant_id
-  } = req.cookies;
-  console.log(product_name, product_price, restaurant_id);
+  
   pool.query(
     "INSERT INTO product(product_name, product_price, restaurant_id) values ($1, $2, $3);",
-    [product_name, product_price, restaurant_id],
+    [product_name, product_price, req.restaurant_id],
     (error, results) => {
       if (error) {
         return res.status(401).send(error.message);
@@ -162,7 +165,7 @@ const addProductsToTicket = (req, res) => {
   const products = JSON.parse(req.body.products);
   const ticket_id = req.params.id;
   pool.query(
-    "DELETE FROM product_in_ticket WHERE ticket_id=$1;",
+    "DELETE FROM product_in_ticket WHERE ticket_id=$1;", // join with ticket!!!
     [ticket_id],
     (error, results) => {
       if (error) return res.status(401).send(error.message);
@@ -170,12 +173,12 @@ const addProductsToTicket = (req, res) => {
         products.forEach(e => {
           console.log(e.product_id, ticket_id, e.quantity);
           pool.query(
-            "INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ($1, $2, $3);",
+            'INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ($1, $2, $3);', // join with ticket!!!
             [e.product_id, ticket_id, e.quantity],
             (error, results) => {
               if (error) {
                 // throw new Error('something went wrong');
-                console.log('something went wrrrong');
+                console.log(error.message);
               }
             });
         });
@@ -189,16 +192,13 @@ const addProductsToTicket = (req, res) => {
 };
 
 const createBord = (req, res) => {
-  const {
-    restaurant_id
-  } = req.cookies;
   const table_name = req.body.table_name;
   const x = 0;
   const y = 0;
   console.log('createBord server: ', table_name);
   pool.query(
     "INSERT INTO bord(restaurant_id, x, y, table_name) values  ($1, $2, $3, $4)  RETURNING table_id;",
-    [restaurant_id, x, y, table_name],
+    [req.restaurant_id, x, y, table_name],
     (error, results) => {
       if (error) {
         console.log(error);
@@ -216,7 +216,7 @@ const createBord = (req, res) => {
 };
 
 const getBords = (req, res) => {
-  pool.query("SELECT * FROM BORD", (error, results) => {
+  pool.query("SELECT * FROM BORD WHERE restaurant_id=$1", [req.restaurant_id], (error, results) => {
     if (error) {
       return res.status(401).send(error.message);
     }
@@ -227,20 +227,16 @@ const getBords = (req, res) => {
 };
 
 const updateBords = (req, res) => {
-  //const { restaurant_id } = req.cookie;
-  const restaurant_id = 1;
   const bords = JSON.parse(req.body.bords);
   pool.query(
-    "DELETE FROM bord;", // add restaurant_id so that you only delete 1 restaurants tables thank you peter cheers!!!!!!!!!!!!!!!
+    "DELETE FROM bord WHERE restaurant_id=$1;", [req.restaurant_id], // add restaurant_id so that you only delete 1 restaurants tables thank you peter cheers!!!!!!!!!!!!!!!
     (error, results) => {
       if (error) return res.status(401).send(error.message);
       bords.forEach(e => {
-        // const xInt = parseInt(e.x);
-        // const yInt = parse(e.y);
-        // console.log(xInt, yInt);
+
         pool.query(
           "INSERT INTO bord(x, y, table_name, restaurant_id) values ($1, $2, $3, $4);",
-          [e.x, e.y, e.table_name, restaurant_id],
+          [e.x, e.y, e.table_name, req.restaurant_id],
           (error, results) => {
             if (error) return console.log(error);
           });
@@ -252,20 +248,17 @@ const updateBords = (req, res) => {
 };
 
 const createTicket = (req, res) => {
-
-  const {
-    restaurant_id
-  } = req.cookies;
-  const {
-    user_id
-  } = req.cookies;
   const {
     table_id
   } = req.body;
-  console.log(req.body);
+
+  const {
+    user_id
+  } = req.cookies;
+
   pool.query(
     "INSERT INTO ticket(restaurant_id, user_id, table_id) values  ($1, $2, $3)  RETURNING ticket_id;",
-    [restaurant_id, user_id, table_id],
+    [req.restaurant_id, user_id, table_id],
     (error, results) => {
       if (error) {
         return res.status(401).send(error.message);
@@ -319,5 +312,6 @@ module.exports = {
   updateBords,
   createTicket,
   createUser,
-  login
+  login,
+  getRestaurantIdAndRole
 };

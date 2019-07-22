@@ -3,7 +3,8 @@ export const AppContext = React.createContext({});
 
 export const getFetch = (apiPath, cb) => {
   fetch("http://localhost:8000" + apiPath, {
-    method: "GET"
+    method: "GET",
+    credentials: "include"
   })
     .then(res => res.json())
     .then(res => cb(null, res))

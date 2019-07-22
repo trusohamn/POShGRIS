@@ -19,6 +19,11 @@ app.use(express.urlencoded({
 
 app.use(cookie_parser());
 
+app.post('/api/restaurants', db.createRestaurant);
+app.post('/api/login', db.login);
+
+app.use(db.getRestaurantIdAndRole);
+
 app.get('/api/products', db.getProducts);
 
 app.get('/api/tickets', db.getTickets);
@@ -26,7 +31,7 @@ app.get('/api/tickets/:id', db.getTicketById);
 app.post('/api/tickets', db.createTicket);
 app.post('/api/tickets/:id', db.addProductsToTicket);
 
-app.post('/api/restaurants', db.createRestaurant);
+
 
 app.post('/api/users', db.createUser);
 
@@ -36,7 +41,7 @@ app.get('/api/bord', db.getBords);
 app.post('/api/bord', db.createBord);
 app.put('/api/bord', db.updateBords);
 
-app.post('/api/login', db.login);
+
 
 
 app.listen(port, () => console.log(`listening on port ${port}`)); 
