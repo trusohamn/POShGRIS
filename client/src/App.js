@@ -6,6 +6,7 @@ import Signup from './views/Signup';
 import AllTickets from './views/AllTickets';
 import AppContextProvider from './context/AppContext';
 import AuthContextProvider, { AuthContext } from './context/AuthContext';
+import {AppContext} from './context/AppContext';
 import Ticket from "./components/Ticket";
 import Order from "./views/Order";
 import RestaurantLayout from "./views/RestaurantLayout";
@@ -16,24 +17,27 @@ import Employees from "./views/Employees"
 function App() {
 
   const auth = useContext(AuthContext);
-
-  console.log(auth);
+  const context = useContext(AppContext);
 
   useEffect(() => {
     auth.checkLogin();
-  }, [])
+    context.getRestaurantName();
+
+  }, []);
 
   return (
 
-    <AppContextProvider>
       <div className="App">
+        
         <Router>
           <div className="nav-container">
 
 
             {auth.loggedIn ?
               <ul className="nav">
-                <li className="nav-links"><Link to="/products">Products</Link></li>
+                
+              <li className="nav-links"><Link to="/">{context.restaurantName ? context.restaurantName : ''}</Link></li>
+              <li className="nav-links"><Link to="/products">Products</Link></li>
                 <li className="nav-links"><Link to="/all-tickets">All Tickets</Link></li>
                 <li className="nav-links"><Link to="/order">New Order</Link></li>
                 <li className="nav-links"><Link to="/restaurantlayout">Restaurant Overview</Link></li>
@@ -67,7 +71,6 @@ function App() {
           }
         </Router>
       </div>
-    </AppContextProvider>
 
   );
 }
