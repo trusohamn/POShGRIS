@@ -20,9 +20,11 @@ app.use(express.urlencoded({
 app.use(cookie_parser());
 
 app.post('/api/restaurants', db.createRestaurant);
+
 app.post('/api/login', db.login);
 
 app.use(db.getRestaurantIdAndRole);
+app.get('/get/restaurants', db.getRestaurant);
 
 app.get('/api/products', db.getProducts);
 

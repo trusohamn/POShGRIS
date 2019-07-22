@@ -28,6 +28,7 @@ function AuthContextProvider(props) {
     setRole(cookieParser().role);
   }
 
+
   const logout = () => {
     setLoggedIn(false); 
     setUser_id(null);

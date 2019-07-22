@@ -17,6 +17,7 @@ function AppContextProvider(props) {
   const [productsInTicket, setProductInTicket] = useState([]);
   const [tablesCoords, setTablesCoords] = useState([]);
   const [nextTicketName, setNextTicketName] = useState(1);
+  const [restaurantName, setRestaurantName] = useState(null);
 
   const getProducts = () => {
     getFetch("/api/products", (err, res) => setProducts(res));
@@ -24,6 +25,10 @@ function AppContextProvider(props) {
 
   const getTickets = () => {
     getFetch("/api/tickets", (err, res) => setTickets(res));
+  };
+
+  const getRestaurantName = () => {
+    getFetch("/api/restaurant", (err, res) => setRestaurantName(res));
   };
 
   const incrementNextTicketName = () => {

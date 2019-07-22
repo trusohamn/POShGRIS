@@ -77,6 +77,20 @@ const createRestaurant = (req, res) => {
     });
 };
 
+const getRestaurant= (req, res) => {
+  pool.query(
+    "SELECT restaurant_name from restaurant where restaurant_id=$1",
+    [req.restaurant_id],
+    (error, results) => {
+      if (error) {
+        return res.status(401).send(error.message);
+      }
+      res.status(201).send({
+        results: results.rows[0].restaurant_name
+      });
+    });
+};
+
 const createUser = (req, res) => {
 
   if(req.role != 'admin')return res.status(401).send('no access');
@@ -137,8 +151,7 @@ const getTicketById = (req, res) => {
       res.status(201).send({
         results: results.rows
       });
-    }
-  );
+    });
 };
 
 const createProduct = (req, res) => {
@@ -302,6 +315,7 @@ const login = (req, res) => {
 
 module.exports = {
   createRestaurant,
+  getRestaurant,
   getProducts,
   createProduct,
   getTickets,
