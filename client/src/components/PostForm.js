@@ -25,12 +25,16 @@ function PostForm(props) {
 
   return (
     <form id="login-form" onSubmit={submitHandler}>
+      <div className="form-holder">
+      <div className="login-form">
       {props.inputs.map(e => {
         return (
           <input type={e.type} name={e.name} placeholder={e.placeholder} />
-        );
-      })}
-      <input type='submit'></input>
+          );
+        })}
+      </div>
+      <input type='submit' className="submitButton"></input>
+      </div>
     </form>
   );
 }
