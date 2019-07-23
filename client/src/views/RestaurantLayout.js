@@ -1,9 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import RndTable from '../components/RndTable';
 import { AppContext } from "../context/AppContext";
+import { AuthContext } from "../context/AuthContext";
 
 function RestaurantLayout() {
   const context = useContext(AppContext);
+  const [isNotDraggable, setIsNotDraggable] = useState(true);
 
   useEffect(() => {
     fetch('http://localhost:8000' + '/api/bord', {
@@ -48,21 +50,32 @@ function RestaurantLayout() {
     })
       .then(res => res.json())
       .then(res => {
+        setIsNotDraggable(true); 
       });
+  }
+
+  const editLayout = (e) => {
+    setIsNotDraggable(false); 
   }
 
   return (
     <div className="layout-parent">
-      <div className="btn-container">
-
-      <button className="layout-btn" onClick={createNewTable}>Add Table</button>
-      <button className="layout-btn" onClick={saveLayout}>Save Layout</button>
-      </div>
+      {
+        isNotDraggable ?
+          <div className="btn-container">
+            <button className="layout-btn" onClick={editLayout}>Edit Layout</button>
+          </div>
+          :
+          <div className="btn-container">
+            <button className="layout-btn" onClick={createNewTable}>Add Table</button>
+            <button className="layout-btn" onClick={saveLayout}>Save Layout</button>
+          </div>
+      }
       <div className="layout-container"
         id="layoutContainer"
       >
         {context.tablesCoords.map((res) => {
-          return <RndTable key={res.table_id} table_id={res.table_id} />
+          return <RndTable key={res.table_id} table_id={res.table_id} draggable={isNotDraggable} />
         })}
 
       </div>

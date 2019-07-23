@@ -32,6 +32,7 @@ function RndTable(props) {
       bounds="parent"
       enableResizing={false}
       dragGrid={[10, 10]}
+      disableDragging={props.draggable}
     >
       <div
         className="box layout-bord"
