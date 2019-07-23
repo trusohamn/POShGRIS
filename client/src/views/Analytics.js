@@ -1,30 +1,44 @@
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext, getFetch } from '../context/AppContext';
 
 function Analytics() {
   const context = useContext(AppContext);
+  const [data, setData] = useState([])
   useEffect(() => {
-    getFetch('/api/tickets/stats', (err, data) => {
-      console.log(data);
-      console.log(data.results[0].timestamp);
-      const date = new Date(data.results[0].timestamp);
+    getFetch('/api/tickets/stats', (err, res) => {
+      console.log(res);
+      console.log(res.results[0].timestamp);
+      const date = new Date(res.results[0].timestamp);
       console.log(date);
-      console.log(typeof date);
+      console.log(date.toISOString().slice(0, 10));
+      const dataObj = res.results.reduce((acc, item) => {
+        const date = new Date(item.timestamp);
+        const dateFormatted = (date.toISOString().slice(0, 10));
+        const datePoint = acc.find(dp => dp.date === dateFormatted);
+        const ePrice = parseFloat(item.product_price) * parseInt(item.quantity);
+        if (datePoint) datePoint.sum += ePrice;
+        else {
+          acc.push({
+            date: dateFormatted,
+            sum: ePrice
+          });
+        }
+        return acc;
+      }, []);
+      dataObj.sort((a, b) => (a.date > b.date) ? 1 : -1);
+      console.log(dataObj);
+      setData(dataObj);
     })
-
-  })
-
-
-  const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }, 
-  { name: 'Page B', uv: 500, pv: 2400, amt: 2400 }];
+  }, [])
 
   const renderLineChart = (
     <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-      <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+      <Line type="monotone" dataKey="sum" stroke="#8884d8" />
       <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="date" />
       <YAxis />
+      <Tooltip />
     </LineChart>
   );
   return (
