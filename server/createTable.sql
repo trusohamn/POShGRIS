@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS bord;
 DROP TABLE IF EXISTS restaurant;
 
+SET timezone TO 'Europe/Stockholm';
+
 CREATE TABLE restaurant (
    restaurant_id serial PRIMARY KEY,
    restaurant_name VARCHAR (50) UNIQUE NOT NULL
@@ -34,6 +36,7 @@ CREATE TABLE ticket (
    user_id INTEGER,
    ticket_status VARCHAR (20),
    notes VARCHAR(400),
+   timestamp timestamp NOT NULL DEFAULT NOW(),
    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id),
    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
