@@ -35,12 +35,11 @@ const Ticket = props => {
             })}
           </tbody>
           <tfoot>
-            <tr>
+            <tr className="ticket-footer">
               <td></td>
-              <td>Total: </td>
+              <td >Total: </td>
               <td>$ {ticketData.reduce((acc, e) => {
                 acc +=  (parseFloat(e.product_price)*parseInt(e.quantity))
-                console.log(acc);
                  return acc;
               },0)}</td>
             </tr>
