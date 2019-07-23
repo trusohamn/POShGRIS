@@ -21,7 +21,8 @@ function App() {
 
   useEffect(() => {
     auth.checkLogin();
-    context.getRestaurantName();
+  
+    // context.getRestaurantName();
 
   }, []);
 

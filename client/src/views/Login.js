@@ -15,8 +15,9 @@ function Login(props) {
     { type: "password", name: "password", placeholder: "Password" },
   ];
 
-  const afterPost = () => {
+  const afterPost = (res) => {
     auth.afterLogin();
+    if (res.error) return; 
     props.history.push('/restaurantlayout');
     context.getRestaurantName();
   }
