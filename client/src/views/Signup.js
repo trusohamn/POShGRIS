@@ -6,6 +6,7 @@ function Signup() {
   const inputs = [
     { type: "text", name: "restaurant_name", placeholder: "Restaurant Name" },
     { type: "text", name: "username", placeholder: "Username" },
+    { type: "text", name: "realName", placeholder: "Name and surname" },
     { type: "password", name: "password", placeholder: "Password" }
   ];
 

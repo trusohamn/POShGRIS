@@ -7,6 +7,7 @@ function PostForm(props) {
     e.preventDefault();
     const data = new URLSearchParams();
     for (const pair of new FormData(e.target)) {
+      console.log(pair);
       data.append(pair[0], pair[1]);
     }
 

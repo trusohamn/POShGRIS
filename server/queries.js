@@ -34,11 +34,11 @@ const getRestaurantIdAndRole = (req, res, next) => {
   )
 }
 
-const queryCreateUser = (restaurant_id, username, password, role, cb) => {
-  console.log(restaurant_id, username, password, role);
+const queryCreateUser = (restaurant_id, username, realName, password, role, cb) => {
+  console.log(restaurant_id, username, realName, password, role);
   pool.query(
-    "INSERT INTO users (restaurant_id, username, password, role) values ($1, $2, $3, $4) RETURNING user_id;",
-    [restaurant_id, username, password, role],
+    "INSERT INTO users (restaurant_id, username, realName, password, role) values ($1, $2, $3, $4, $5) RETURNING user_id;",
+    [restaurant_id, username, realName, password, role],
     (error, results) => {
       if (error) {
         console.log(error);
@@ -53,6 +53,7 @@ const createRestaurant = (req, res) => {
     restaurant_name,
     username,
     password,
+    realName
   } = req.body;
   const role = 'admin';
 
@@ -66,7 +67,7 @@ const createRestaurant = (req, res) => {
       }
       const restaurant_id = results.rows[0].restaurant_id;
 
-      queryCreateUser(restaurant_id, username, password, role, (err, user_id) => {
+      queryCreateUser(restaurant_id, username, realName, password, role, (err, user_id) => {
         if (err) return res.status(401).send(error.message);
         res.cookie("user_id", user_id);
         res.cookie("role", role);
@@ -98,10 +99,11 @@ const createUser = (req, res) => {
   const {
     username,
     password,
-    role
+    role,
+    realName
   } = req.body;
-
-  queryCreateUser(req.restaurant_id, username, password, role, (err, user_id) => {
+console.log('*********', req.restaurant_id, username, realName, password, role)
+  queryCreateUser(req.restaurant_id, username, realName, password, role, (err, user_id) => {
     if (err) return res.status(401).send(err.message);
     res.status(201).send({
       message: "User added"

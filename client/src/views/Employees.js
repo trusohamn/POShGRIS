@@ -17,6 +17,7 @@ const context = useContext(AppContext);
 
   const inputs = [
     { type: "text", name: "username", placeholder: "Username" },
+    { type: "text", name: "realName", placeholder: "Name and surname" },
     { type: "password", name: "password", placeholder: "Password" },
     { type: "text", name: "role", placeholder: "Role" },
   ];

@@ -48,8 +48,8 @@ function Analytics() {
     <LineChart width={600} height={300} data={dataDate} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
       <Line type="monotone" dataKey="sum" stroke="#8884d8" />
       <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-      <XAxis dataKey="dateDate" />
-      <YAxis />
+      <XAxis dataKey="date" stroke="#91a0ce" />
+      <YAxis stroke="#91a0ce"/>
       <Tooltip />
     </LineChart>
   );

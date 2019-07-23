@@ -16,6 +16,7 @@ CREATE TABLE restaurant (
 CREATE TABLE users ( 
    user_id serial PRIMARY KEY,
    username VARCHAR (50) UNIQUE NOT NULL,
+   realName VARCHAR (50),
    password VARCHAR (50) NOT NULL,
    role VARCHAR (50) NOT NULL, 
    restaurant_id INTEGER,
@@ -63,8 +64,8 @@ CREATE TABLE bord (
 INSERT INTO restaurant(restaurant_name) values ('Frisky pizzas');
 INSERT INTO restaurant(restaurant_name) values ('Posh pizzas');
 
-INSERT INTO users(username, role, password, restaurant_id) values ('gris', 'admin', 'secret', '1');
-INSERT INTO users(username, role, password, restaurant_id) values ('poshgris', 'admin', 'secret', '2');
+INSERT INTO users(username, realName, role, password, restaurant_id) values ('gris', 'The GRIS', 'admin', 'secret', '1');
+INSERT INTO users(username, realName, role, password, restaurant_id) values ('poshgris', 'The Posh GRIS', 'admin', 'secret', '2');
 
 
 INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh pork', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
