@@ -16,8 +16,8 @@ function Login(props) {
   ];
 
   const afterPost = (res) => {
+    if (res.error) return ; 
     auth.afterLogin();
-    if (res.error) return; 
     props.history.push('/restaurantlayout');
     context.getRestaurantName();
   }

@@ -10,6 +10,8 @@ function Order(props) {
     context.getProducts();
   }, []);
 
+  console.log(props);
+
   const addProductOnClick = (e) => {
     console.log(e.target);
     const product = context.productsInTicket.find(item => (item.product_id == e.target.className ));
