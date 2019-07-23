@@ -5,14 +5,19 @@ import Products from "../components/Products";
 
 function Order(props) {
   const context = useContext(AppContext); 
-  
+  const [refreshCounter, setRefreshCounter] = useState(1);
   useEffect(() => {
     context.getProducts();
   }, []);
 
   const addProductOnClick = (e) => {
     console.log(e.target);
-    context.setProductInTicket([...context.productsInTicket, e.target.className])
+    const product = context.productsInTicket.find(item => (item.product_id == e.target.className ));
+    if(product) product.quantity++;
+    else {
+      context.setProductInTicket([...context.productsInTicket,{product_id: e.target.className,quantity: 1}])
+    }
+    setRefreshCounter(refreshCounter + 1);
   }
 
   return (

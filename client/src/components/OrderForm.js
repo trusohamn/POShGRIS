@@ -40,7 +40,6 @@ function OrderForm(props) {
           .then(res => {
             context.setProductInTicket([]);
             props.history.push('/all-tickets');
-            console.log(res)
           });
       });
   }
@@ -49,17 +48,15 @@ function OrderForm(props) {
     <div className="orderForm-parent" id="order-form-div">
       <form id="order-form" onSubmit={submitHandler}>
         <div className="table-num-holder">
-          <h3 className="table-number-title">Table #</h3>
-          <p>{context.activeTable.table_name}</p>
-          <input id="table_id" type="number" value={context.activeTable.table_id} name="table_id"></input>
+          <h3 className="table-number-title">Table Name</h3>
+          <p className="table-name">{context.activeTable.table_name}</p>
+          <input id="table_id"type="hidden" value={context.activeTable.table_id} name="table_id"></input>
         </div>
         <div className="orderForm-items" id="productsInOrder">
-          {context.productsInTicket.map(itemId => {
-            console.log(itemId);
-            const product = context.products.results.find(e => e.product_id == itemId);
-            console.log(product);
+          {context.productsInTicket.map(item => {
+            const product = context.products.results.find(e => e.product_id == item.product_id);
             return (
-              <TicketItem product={product} itemId={itemId} />
+              <TicketItem product={product} item={item} />
             )
           })}
         </div>
