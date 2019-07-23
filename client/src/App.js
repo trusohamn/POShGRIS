@@ -28,7 +28,7 @@ function App() {
 
       <div className="App">
         
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <div className="nav-container">
 
 
