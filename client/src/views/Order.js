@@ -10,7 +10,6 @@ function Order(props) {
     context.getProducts();
   }, []);
 
-  console.log(props);
 
   const addProductOnClick = (e) => {
     console.log(e.target);

@@ -29,21 +29,21 @@ const Ticket = props => {
 
               return (<tr>
                 <td>{e.product_name}</td>
-                <td>${e.product_price}</td>
+                <td>$ {e.product_price}</td>
                 <td>{e.quantity}</td>
               </tr>);
             })}
           </tbody>
-          {/* <tfoot>
-            <tr>
+          <tfoot>
+            <tr className="ticket-footer">
               <td></td>
-              <td>Total: </td>
-              <td>{ticketData.reduce(acc, e) => {
-                 acc +=(e.product_price*e.quantity);
+              <td >Total: </td>
+              <td>$ {ticketData.reduce((acc, e) => {
+                acc +=  (parseFloat(e.product_price)*parseInt(e.quantity))
                  return acc;
-              },0}</td>
+              },0)}</td>
             </tr>
-          </tfoot> */}
+          </tfoot>
         </table>
         :
         <p>Loading...</p>

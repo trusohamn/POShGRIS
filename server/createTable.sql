@@ -26,7 +26,7 @@ CREATE TABLE product (
    product_id serial PRIMARY KEY,
    restaurant_id INTEGER,
    product_name VARCHAR (50) UNIQUE NOT NULL,
-   product_price VARCHAR (20),
+   product_price DECIMAL,
    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
 
@@ -67,12 +67,12 @@ INSERT INTO users(username, role, password, restaurant_id) values ('gris', 'admi
 INSERT INTO users(username, role, password, restaurant_id) values ('poshgris', 'admin', 'secret', '2');
 
 
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh pork', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh chicken', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh shrimp', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh beef', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh frog', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh noodles', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh pork', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh chicken', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh shrimp', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh beef', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh frog', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh noodles', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
 
 
 INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '1 DAY'));
