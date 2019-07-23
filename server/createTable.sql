@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS bord;
 DROP TABLE IF EXISTS restaurant;
 
 SET timezone TO 'Europe/Stockholm';
+ALTER DATABASE postgres SET timezone TO 'Europe/Stockholm';
 
 CREATE TABLE restaurant (
    restaurant_id serial PRIMARY KEY,
