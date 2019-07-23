@@ -27,12 +27,13 @@ app.use(db.getRestaurantIdAndRole);
 app.get('/api/restaurants', db.getRestaurant);
 
 app.get('/api/products', db.getProducts);
-
+app.get('/api/users', db.getUsers);
 app.get('/api/tickets', db.getTickets);
 app.get('/api/tickets/stats', db.getTicketsStats);
 app.get('/api/tickets/:id', db.getTicketById);
 app.post('/api/tickets', db.createTicket);
 app.post('/api/tickets/:id', db.addProductsToTicket);
+
 
 
 
