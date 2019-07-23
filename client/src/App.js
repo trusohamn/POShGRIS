@@ -11,6 +11,7 @@ import Order from "./views/Order";
 import RestaurantLayout from "./views/RestaurantLayout";
 import Login from "./views/Login"
 import Employees from "./views/Employees"
+import Analytics from "./views/Analytics"
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                 <li className="nav-links"><Link to="/order">New Order</Link></li>
                 <li className="nav-links"><Link to="/restaurantlayout">Restaurant Overview</Link></li>
                 <li className="nav-links"><Link to="/employees">Employees</Link></li>
+                <li className="nav-links"><Link to="/analytics">Analytics</Link></li>
                 <li><button onClick={auth.logout}>Logout</button></li>
               </ul>
 
@@ -59,6 +61,7 @@ function App() {
               <Route path="/ticket/:id" component={Ticket} />
               <Route path="/order" component={Order} />
               <Route path="/restaurantlayout" component={RestaurantLayout} />
+              <Route path="/analytics" component={Analytics} />
             </Switch>
 
             :

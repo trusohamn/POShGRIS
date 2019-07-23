@@ -5,7 +5,9 @@ import { AuthContext } from "../context/AuthContext";
 
 function RestaurantLayout() {
   const context = useContext(AppContext);
+  const auth = useContext(AuthContext);
   const [isNotDraggable, setIsNotDraggable] = useState(true);
+
 
   useEffect(() => {
     fetch('http://localhost:8000' + '/api/bord', {
@@ -60,7 +62,9 @@ function RestaurantLayout() {
 
   return (
     <div className="layout-parent">
-      {
+     
+       {
+        auth.role == 'admin' ?
         isNotDraggable ?
           <div className="btn-container">
             <button className="layout-btn" onClick={editLayout}>Edit Layout</button>
@@ -70,7 +74,10 @@ function RestaurantLayout() {
             <button className="layout-btn" onClick={createNewTable}>Add Table</button>
             <button className="layout-btn" onClick={saveLayout}>Save Layout</button>
           </div>
+          : 
+          <div></div>
       }
+      
       <div className="layout-container"
         id="layoutContainer"
       >
