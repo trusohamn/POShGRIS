@@ -12,30 +12,42 @@ const Ticket = props => {
     );
   }, []);
 
+
   return (
     <div>
-      {ticketData ? 
-      
-      <table className="ticket-table">
-        <tr className="ticket-tr">
-          <th>Product</th>
-          <th>Price</th>
-          <th>Quantity</th>
-        </tr>
-        <tbody>
-            
-        {ticketData.map(e => {
-            return (<tr>
-            <td>{e.product_name}</td>
-            <td>{e.product_price}</td>
-            <td>{e.quantity}</td>
-          </tr>);
-        })}
-        </tbody>
-      </table>
-    : 
-    <p>Loading...</p>
-    }
+      {ticketData ?
+
+        <table className="ticket-table">
+          <tr className="ticket-tr">
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+          </tr>
+          <tbody>
+
+            {ticketData.map(e => {
+
+              return (<tr>
+                <td>{e.product_name}</td>
+                <td>${e.product_price}</td>
+                <td>{e.quantity}</td>
+              </tr>);
+            })}
+          </tbody>
+          {/* <tfoot>
+            <tr>
+              <td></td>
+              <td>Total: </td>
+              <td>{ticketData.reduce(acc, e) => {
+                 acc +=(e.product_price*e.quantity);
+                 return acc;
+              },0}</td>
+            </tr>
+          </tfoot> */}
+        </table>
+        :
+        <p>Loading...</p>
+      }
     </div>
   );
 };

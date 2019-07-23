@@ -135,7 +135,7 @@ const getTickets = (req, res) => {
 };
 
 const getTicketsStats = (req, res) => {
-  pool.query(`SELECT p.product_id, p.product_name, p.product_price, pt.quantity, t.timestamp, t.user_id 
+  pool.query(`SELECT t.ticket_id, p.product_id, p.product_name, p.product_price, pt.quantity, t.timestamp, t.user_id 
   FROM TICKET as t 
   INNER JOIN product_in_ticket as pt on pt.ticket_id = t.ticket_id
   INNER JOIN product as p on pt.product_id = p.product_id
