@@ -4,14 +4,15 @@ import PostForm from "../components/PostForm";
 
 function Employees() {
   const [users, setUsers] = useState(null)
+const context = useContext(AppContext);
+
   useEffect(() => {
-      
+
       getFetch('/api/users', (err, res) => {
         if(err) console.log(err);
         setUsers(res.results);
-        console.log(res.results);
       })
-    
+      
   }, [])
 
   const inputs = [
@@ -19,6 +20,13 @@ function Employees() {
     { type: "password", name: "password", placeholder: "Password" },
     { type: "text", name: "role", placeholder: "Role" },
   ];
+
+  const afterPost = (res) => {
+    getFetch('/api/users', (err, res) => {
+      if(err) console.log(err);
+      setUsers(res.results);
+    })
+  }
 
   return (
     <div>
@@ -33,7 +41,7 @@ function Employees() {
             <tbody>
               {users.map(x => {
                 return (<tr>
-                  <td>{x.id}</td>
+                  <td>{x.user_id}</td>
                   <td>$ {x.username}</td>
                   <td>{x.role}</td>
                 </tr>);
@@ -43,7 +51,7 @@ function Employees() {
         </div>
       }
       <div>
-        <PostForm apiPath="/api/users" inputs={inputs} />
+        <PostForm apiPath="/api/users" inputs={inputs} afterPost={afterPost} />
       </div>
     </div>
   );

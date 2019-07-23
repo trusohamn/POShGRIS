@@ -6,8 +6,10 @@ import Products from "../components/Products";
 function Order(props) {
   const context = useContext(AppContext); 
   const [refreshCounter, setRefreshCounter] = useState(1);
+
   useEffect(() => {
     context.getProducts();
+    setRefreshCounter(refreshCounter + 1);
   }, []);
 
 
