@@ -326,6 +326,18 @@ const login = (req, res) => {
     });
 }
 
+const getUsers = (req, res) => {
+
+  pool.query("SELECT * FROM USERS WHERE restaurant_id=$1", [req.restaurant_id], (error, results) => {
+    if (error) {
+      return res.status(401).send(error.message);
+    }
+    res.status(201).send({
+      results: results.rows
+    });
+  });
+};
+
 module.exports = {
   createRestaurant,
   getRestaurant,
@@ -341,5 +353,6 @@ module.exports = {
   createTicket,
   createUser,
   login,
-  getRestaurantIdAndRole
+  getRestaurantIdAndRole,
+  getUsers
 };
