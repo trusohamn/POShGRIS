@@ -133,9 +133,22 @@ const getTickets = (req, res) => {
     });
   });
 };
-// select pt.quantity, p.product_name, p.product_price from product_in_ticket as pt 
-//     inner join product as p on pt.product_id = p.product_id
-//     where pt.ticket_id=1  ;
+
+const getTicketsStats = (req, res) => {
+  pool.query(`SELECT p.product_id, p.product_name, p.product_price, pt.quantity, t.timestamp, t.user_id 
+  FROM TICKET as t 
+  INNER JOIN product_in_ticket as pt on pt.ticket_id = t.ticket_id
+  INNER JOIN product as p on pt.product_id = p.product_id
+  WHERE t.restaurant_id=$1;`, [req.restaurant_id],(error, results) => {
+    if (error) {
+      return res.status(401).send(error.message);
+    }
+    res.status(201).send({
+      results: results.rows
+    });
+  });
+}
+
 const getTicketById = (req, res) => {
   const ticket_id = req.params.id;
   pool.query(
@@ -319,6 +332,7 @@ module.exports = {
   getProducts,
   createProduct,
   getTickets,
+  getTicketsStats,
   getTicketById,
   addProductsToTicket,
   getBords,
