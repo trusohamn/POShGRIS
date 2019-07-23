@@ -2,18 +2,18 @@ import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import PostForm from "../components/PostForm";
 
-function Signup() {
+function Employees() {
   const inputs = [
-    { type: "text", name: "restaurant_name", placeholder: "Restaurant Name" },
     { type: "text", name: "username", placeholder: "Username" },
-    { type: "password", name: "password", placeholder: "Password" }
+    { type: "password", name: "password", placeholder: "Password" },
+    { type: "text", name: "role", placeholder: "Role" },
   ];
 
   return (
     <div>
-      <PostForm apiPath="/api/restaurants" inputs={inputs}  />
+      <PostForm apiPath="/api/users" inputs={inputs}  />
     </div>
   );
 }
 
-export default Signup;
+export default Employees;

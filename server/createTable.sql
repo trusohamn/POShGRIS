@@ -14,7 +14,9 @@ CREATE TABLE users (
    user_id serial PRIMARY KEY,
    username VARCHAR (50) UNIQUE NOT NULL,
    password VARCHAR (50) NOT NULL,
-   email VARCHAR (355) UNIQUE NOT NULL
+   role VARCHAR (50) NOT NULL, 
+   restaurant_id INTEGER,
+   FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
 
 CREATE TABLE product ( 
@@ -54,9 +56,12 @@ CREATE TABLE bord (
    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
 
-INSERT INTO users(username, password, email) values ('gris', 'secret', 'salty@salt.com');
-
 INSERT INTO restaurant(restaurant_name) values ('Frisky pizzas');
+INSERT INTO restaurant(restaurant_name) values ('Posh pizzas');
+
+INSERT INTO users(username, role, password, restaurant_id) values ('gris', 'admin', 'secret', '1');
+INSERT INTO users(username, role, password, restaurant_id) values ('poshgris', 'admin', 'secret', '2');
+
 
 INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh pork', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
 INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh chicken', '$13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
@@ -68,9 +73,9 @@ INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh no
 
 INSERT INTO ticket(restaurant_id, table_id, user_id) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'));
 
-INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'frisky pork'), '1', '2');
-INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'frisky shrimp'), '1', '2');
-INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'frisky noodles'), '1', '2');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'Posh pork'), '1', '2');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'Posh chicken'), '1', '2');
+
 
 INSERT INTO bord(restaurant_id, x, y, table_name) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), 200, 100, 'bar');
 INSERT INTO bord(restaurant_id, x, y, table_name) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), 100, 50, 'kitchen');

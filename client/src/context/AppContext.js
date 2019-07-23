@@ -3,7 +3,8 @@ export const AppContext = React.createContext({});
 
 export const getFetch = (apiPath, cb) => {
   fetch("http://localhost:8000" + apiPath, {
-    method: "GET"
+    method: "GET",
+    credentials: "include"
   })
     .then(res => res.json())
     .then(res => cb(null, res))
@@ -16,6 +17,7 @@ function AppContextProvider(props) {
   const [productsInTicket, setProductInTicket] = useState([]);
   const [tablesCoords, setTablesCoords] = useState([]);
   const [nextTicketName, setNextTicketName] = useState(1);
+  const [restaurantName, setRestaurantName] = useState(null);
 
   const getProducts = () => {
     getFetch("/api/products", (err, res) => setProducts(res));
@@ -25,8 +27,13 @@ function AppContextProvider(props) {
     getFetch("/api/tickets", (err, res) => setTickets(res));
   };
 
+  const getRestaurantName = () => { 
+    getFetch("/api/restaurants", (err, res) => setRestaurantName(res.results));
+  }
+
+
   const incrementNextTicketName = () => {
-    setNextTicketName(nextTicketName+1);
+    setNextTicketName(nextTicketName + 1);
   }
 
   const state = {
@@ -39,7 +46,10 @@ function AppContextProvider(props) {
     tablesCoords,
     setTablesCoords,
     nextTicketName,
-    incrementNextTicketName
+    incrementNextTicketName, 
+    restaurantName, 
+    setRestaurantName,
+    getRestaurantName
   };
 
   return (
