@@ -34,7 +34,7 @@ function RndTable(props) {
       dragGrid={[10, 10]}
       disableDragging={props.draggable}
     >
-      <div
+      <div onClick={props.createTicket}
         className="box layout-bord"
         style={{}}
       >

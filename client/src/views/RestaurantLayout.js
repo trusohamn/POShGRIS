@@ -3,7 +3,7 @@ import RndTable from '../components/RndTable';
 import { AppContext } from "../context/AppContext";
 import { AuthContext } from "../context/AuthContext";
 
-function RestaurantLayout() {
+function RestaurantLayout(props) {
   const context = useContext(AppContext);
   const auth = useContext(AuthContext);
   const [isNotDraggable, setIsNotDraggable] = useState(true);
@@ -59,6 +59,13 @@ function RestaurantLayout() {
   const editLayout = (e) => {
     setIsNotDraggable(false); 
   }
+  
+  const createTicket = (e) => {
+    if (!isNotDraggable) return;
+    const table_id = context.tablesCoords.find(table => table.table_name == e.target.innerHTML);
+    context.setActiveTable(table_id);
+    props.history.push('/order');
+  }
 
   return (
     <div className="layout-parent">
@@ -82,7 +89,7 @@ function RestaurantLayout() {
         id="layoutContainer"
       >
         {context.tablesCoords.map((res) => {
-          return <RndTable key={res.table_id} table_id={res.table_id} draggable={isNotDraggable} />
+          return <RndTable key={res.table_id} table_id={res.table_id} draggable={isNotDraggable} createTicket={createTicket}/>
         })}
 
       </div>

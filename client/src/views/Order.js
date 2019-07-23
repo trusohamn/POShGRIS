@@ -3,7 +3,7 @@ import { AppContext } from "../context/AppContext";
 import OrderForm from '../components/OrderForm';
 import Products from "../components/Products";
 
-function Order() {
+function Order(props) {
   const context = useContext(AppContext); 
   
   useEffect(() => {
@@ -18,8 +18,7 @@ function Order() {
   return (
     <div>
       <Products  addProductOnClick={addProductOnClick} isOrderView={true} />
-
-      <OrderForm/>
+      <OrderForm history={props.history}/>
     </div>
   );
 }

@@ -39,7 +39,6 @@ function App() {
               <li className="nav-links"><Link to="/">{context.restaurantName ? context.restaurantName : ''}</Link></li>
               <li className="nav-links"><Link to="/products">Products</Link></li>
                 <li className="nav-links"><Link to="/all-tickets">All Tickets</Link></li>
-                <li className="nav-links"><Link to="/order">New Order</Link></li>
                 <li className="nav-links"><Link to="/restaurantlayout">Restaurant Overview</Link></li>
                 <li className="nav-links"><Link to="/employees">Employees</Link></li>
                 <li className="nav-links"><Link to="/analytics">Analytics</Link></li>

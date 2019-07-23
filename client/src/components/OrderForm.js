@@ -18,7 +18,7 @@ function OrderForm(props) {
     })
       .then(res => res.json())
       .then(res => {
-        const {ticket_id} = res;
+        const { ticket_id } = res;
         const data = new URLSearchParams();
         const arr = Array.from(document.querySelector('#productsInOrder').children);
         const productList = arr.reduce((acc, e) => {
@@ -30,7 +30,7 @@ function OrderForm(props) {
         }, []);
         data.append('products', JSON.stringify(productList));
 
-        console.log('submitting form for ticket nr', ticket_id );
+        console.log('submitting form for ticket nr', ticket_id);
         fetch('http://localhost:8000' + `/api/tickets/${ticket_id}`, {
           method: "POST",
           credentials: "include",
@@ -39,16 +39,19 @@ function OrderForm(props) {
           .then(res => res.json())
           .then(res => {
             context.setProductInTicket([]);
-            console.log(res)});
+            props.history.push('/all-tickets');
+            console.log(res)
+          });
       });
   }
 
   return (
-    <div className="orderForm-parent"id="order-form-div">
+    <div className="orderForm-parent" id="order-form-div">
       <form id="order-form" onSubmit={submitHandler}>
         <div className="table-num-holder">
-        <h3 className="table-number-title">Table #</h3>
-        <input id="table_id" type="number" defaultValue={1} name="table_id"></input>
+          <h3 className="table-number-title">Table #</h3>
+          <p>{context.activeTable.table_name}</p>
+          <input id="table_id" type="number" value={context.activeTable.table_id} name="table_id"></input>
         </div>
         <div className="orderForm-items" id="productsInOrder">
           {context.productsInTicket.map(itemId => {
@@ -56,13 +59,13 @@ function OrderForm(props) {
             const product = context.products.results.find(e => e.product_id == itemId);
             console.log(product);
             return (
-                <TicketItem product={product} itemId={itemId}/>
+              <TicketItem product={product} itemId={itemId} />
             )
           })}
         </div>
         <div className="send-order-btn-holder">
-        <input type='submit' value="Send Order"
-        className="send-order-btn"></input>
+          <input type='submit' value="Send Order"
+            className="send-order-btn"></input>
         </div>
       </form>
     </div>
