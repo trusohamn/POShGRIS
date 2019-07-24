@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/POShGRIS/static/css/main.90f197f7.chunk.css",
-    "main.js": "/POShGRIS/static/js/main.b253fed2.chunk.js",
-    "main.js.map": "/POShGRIS/static/js/main.b253fed2.chunk.js.map",
+    "main.css": "/POShGRIS/static/css/main.b240a8f0.chunk.css",
+    "main.js": "/POShGRIS/static/js/main.1a594bc5.chunk.js",
+    "main.js.map": "/POShGRIS/static/js/main.1a594bc5.chunk.js.map",
     "runtime~main.js": "/POShGRIS/static/js/runtime~main.17dfa8e6.js",
     "runtime~main.js.map": "/POShGRIS/static/js/runtime~main.17dfa8e6.js.map",
-    "static/js/2.7d543b7a.chunk.js": "/POShGRIS/static/js/2.7d543b7a.chunk.js",
-    "static/js/2.7d543b7a.chunk.js.map": "/POShGRIS/static/js/2.7d543b7a.chunk.js.map",
+    "static/js/2.46b0a209.chunk.js": "/POShGRIS/static/js/2.46b0a209.chunk.js",
+    "static/js/2.46b0a209.chunk.js.map": "/POShGRIS/static/js/2.46b0a209.chunk.js.map",
     "index.html": "/POShGRIS/index.html",
-    "precache-manifest.9221552f279c8db399d2fe34e6671d48.js": "/POShGRIS/precache-manifest.9221552f279c8db399d2fe34e6671d48.js",
+    "precache-manifest.808402c85f913a26c76e5ec210355e1c.js": "/POShGRIS/precache-manifest.808402c85f913a26c76e5ec210355e1c.js",
     "service-worker.js": "/POShGRIS/service-worker.js",
-    "static/css/main.90f197f7.chunk.css.map": "/POShGRIS/static/css/main.90f197f7.chunk.css.map"
+    "static/css/main.b240a8f0.chunk.css.map": "/POShGRIS/static/css/main.b240a8f0.chunk.css.map"
   }
 }
