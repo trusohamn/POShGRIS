@@ -20,6 +20,10 @@ function PostForm(props) {
       .then(res => res.json())
       .then(res => {
         if (props.afterPost) props.afterPost(res);
+
+        document.querySelectorAll('input').forEach(input => {
+          input.value='';
+        })
       });
   }
 
