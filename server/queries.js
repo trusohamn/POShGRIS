@@ -27,6 +27,7 @@ const getRestaurantIdAndRole = (req, res, next) => {
       req.role = null;
 
       if (error) return next(error);
+      if(!results.rows[0]) return next('no results!');
       req.role = results.rows[0].role;
       req.restaurant_id = results.rows[0].restaurant_id;
       next();
