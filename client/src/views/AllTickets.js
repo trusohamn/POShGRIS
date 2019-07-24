@@ -1,18 +1,25 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import TicketTimer from "../components/TicketTimer";
+import { AuthContext } from "../context/AuthContext";
 
 function AllTickets() {
   const [tick, setTick] = useState(0);
   const context = useContext(AppContext);
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     context.getTickets();
     setTick(tick + 1);
-    setInterval(()=> {
-      context.getTickets();
-      console.log('tickets!')
-    }, 3000);
+    const refresh = setInterval(()=> {
+      console.log(auth);
+
+      if(auth.loggedIn) {
+        context.getTickets();
+        console.log('tickets!');
+      } else {clearInterval(refresh);}
+      }, 3000);
+
   }, []);
 
   useEffect(() => {

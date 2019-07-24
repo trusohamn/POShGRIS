@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import {Link } from 'react-router-dom';
 import { AuthContext } from "../context/AuthContext";
 import {AppContext} from '../context/AppContext';
@@ -17,15 +17,16 @@ function Login(props) {
 
   const afterPost = (res) => {
     if (res.error) return ; 
+    console.log('whoa whoa calm down, take a breather', res); 
     auth.afterLogin();
     props.history.push('/restaurantlayout');
     context.getRestaurantName();
   }
 
   return (
-    <div>
+    <div className="form-holder">
       <PostForm apiPath="/api/login" inputs={inputs} afterPost={afterPost}/>
-      <button><Link to="/signup">Signup</Link></button>
+      <button className="signUpButton"><Link to="/signup">Create an account</Link></button>
 
     </div>
   );

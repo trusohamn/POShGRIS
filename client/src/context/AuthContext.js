@@ -7,6 +7,7 @@ function AuthContextProvider(props) {
   const [role, setRole] = useState(null);
   const [realname, setRealname] = useState('');
 
+
   const cookieParser = () => {
     const cookieObj = document.cookie.split(';').reduce((acc, item) => {
       const pair = item.split('=');
@@ -35,14 +36,14 @@ function AuthContextProvider(props) {
 
 
   const logout = () => {
-    setLoggedIn(false); 
+    document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "realname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setUser_id(null);
     setRole(null);
     setRealname('');
-
+    setLoggedIn(false); 
     
-    document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   }
 
   const state = {
