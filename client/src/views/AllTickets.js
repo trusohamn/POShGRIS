@@ -11,6 +11,10 @@ function AllTickets() {
   useEffect(() => {
     context.getTickets();
     setTick(tick + 1);
+    setInterval(()=> {
+      context.getTickets();
+      console.log('tickets!')
+    }, 3000);
   }, []);
 
   useEffect(() => {
