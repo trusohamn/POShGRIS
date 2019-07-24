@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import RndTable from '../components/RndTable';
-import { AppContext } from "../context/AppContext";
+import { AppContext, getFetch } from "../context/AppContext";
 import { AuthContext } from "../context/AuthContext";
 
 function RestaurantLayout(props) {
@@ -10,17 +10,25 @@ function RestaurantLayout(props) {
 
 
   useEffect(() => {
-    fetch('http://localhost:8000' + '/api/bord', {
-      method: "GET",
-      credentials: "include"
+    getFetch("/api/tickets", (err, tickets) => {
+
+      fetch('http://localhost:8000' + '/api/bord', {
+        method: "GET",
+        credentials: "include"
+      })
+        .then(res => res.json())
+        .then(res => {
+          console.log('**********', res)
+          context.setTablesCoords(res.results.map((table) => {
+            const ticketForTable = tickets.results.find(ticket => {
+              return (ticket.table_id == table.table_id);
+            });
+            return { ...table, hasTicket: !!ticketForTable };
+          }));
+        });
+      console.log(context.tickets)
     })
-      .then(res => res.json())
-      .then(res => {
-        context.setTablesCoords(res.results.map((e) => {
-          console.log(e);
-          return { ...e };
-        }));
-      });
+
   }, []);
 
   const createNewTable = (e) => {
@@ -52,14 +60,14 @@ function RestaurantLayout(props) {
     })
       .then(res => res.json())
       .then(res => {
-        setIsNotDraggable(true); 
+        setIsNotDraggable(true);
       });
   }
 
   const editLayout = (e) => {
-    setIsNotDraggable(false); 
+    setIsNotDraggable(false);
   }
-  
+
   const createTicket = (e) => {
     if (!isNotDraggable) return;
     const table_id = context.tablesCoords.find(table => table.table_name == e.target.innerHTML);
@@ -69,27 +77,27 @@ function RestaurantLayout(props) {
 
   return (
     <div className="layout-parent">
-     
-       {
+
+      {
         auth.role == 'admin' ?
-        isNotDraggable ?
-          <div className="btn-container">
-            <button className="layout-btn" onClick={editLayout}>Edit Layout</button>
-          </div>
+          isNotDraggable ?
+            <div className="btn-container">
+              <button className="layout-btn" onClick={editLayout}>Edit Layout</button>
+            </div>
+            :
+            <div className="btn-container">
+              <button className="layout-btn" onClick={createNewTable}>Add Table</button>
+              <button className="layout-btn" onClick={saveLayout}>Save Layout</button>
+            </div>
           :
-          <div className="btn-container">
-            <button className="layout-btn" onClick={createNewTable}>Add Table</button>
-            <button className="layout-btn" onClick={saveLayout}>Save Layout</button>
-          </div>
-          : 
           <div></div>
       }
-      
+
       <div className="layout-container"
         id="layoutContainer"
       >
         {context.tablesCoords.map((res) => {
-          return <RndTable key={res.table_id} table_id={res.table_id} draggable={isNotDraggable} createTicket={createTicket}/>
+          return <RndTable key={res.table_id} table_id={res.table_id} draggable={isNotDraggable} createTicket={createTicket} />
         })}
 
       </div>
