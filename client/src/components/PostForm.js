@@ -1,4 +1,5 @@
 import React from "react";
+import {server_url} from '../config'
 
 function PostForm(props) {
 
@@ -11,7 +12,7 @@ function PostForm(props) {
       data.append(pair[0], pair[1]);
     }
 
-    fetch("http://localhost:8000" + props.apiPath, {
+    fetch(server_url + props.apiPath, {
       method: "POST",
       credentials: "include",
       body: data

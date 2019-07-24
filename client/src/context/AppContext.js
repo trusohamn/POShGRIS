@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import {server_url} from '../config'
 export const AppContext = React.createContext({});
 
+
 export const getFetch = (apiPath, cb) => {
-  fetch("http://localhost:8000" + apiPath, {
+  fetch(server_url + apiPath, {
     method: "GET",
     credentials: "include"
   })

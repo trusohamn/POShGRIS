@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getFetch } from "../context/AppContext";
+import {server_url} from '../config'
 
 const Ticket = props => {
   const pathArr = props.location.pathname.split("/");
@@ -16,7 +17,7 @@ const Ticket = props => {
     e.preventDefault();
     console.log(window.location.href)
   
-    fetch('http://localhost:8000' + `/api/tickets/${ticket_id}`, {
+    fetch(server_url + `/api/tickets/${ticket_id}`, {
       method: "PUT",
       credentials: "include",
     })

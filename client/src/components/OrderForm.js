@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import TicketItem from './TicketItem';
+import {server_url} from '../config'
 
 
 function OrderForm(props) {
@@ -11,7 +12,7 @@ function OrderForm(props) {
     const data1 = new URLSearchParams();
     data1.append('table_id', document.querySelector('#table_id').value);
     console.log(data1);
-    fetch('http://localhost:8000' + '/api/tickets/', {
+    fetch(server_url + '/api/tickets/', {
       method: "POST",
       credentials: "include",
       body: data1
@@ -31,7 +32,7 @@ function OrderForm(props) {
         data.append('products', JSON.stringify(productList));
 
         console.log('submitting form for ticket nr', ticket_id);
-        fetch('http://localhost:8000' + `/api/tickets/${ticket_id}`, {
+        fetch(server_url + `/api/tickets/${ticket_id}`, {
           method: "POST",
           credentials: "include",
           body: data

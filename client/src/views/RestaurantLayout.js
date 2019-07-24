@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import RndTable from '../components/RndTable';
 import { AppContext, getFetch } from "../context/AppContext";
 import { AuthContext } from "../context/AuthContext";
+import {server_url} from '../config'
 
 function RestaurantLayout(props) {
   const context = useContext(AppContext);
@@ -11,7 +12,7 @@ function RestaurantLayout(props) {
   const refreshLayout = () => {
     getFetch("/api/tickets", (err, tickets) => {
 
-      fetch('http://localhost:8000' + '/api/bord', {
+      fetch(server_url + '/api/bord', {
         method: "GET",
         credentials: "include"
       })
@@ -41,7 +42,7 @@ function RestaurantLayout(props) {
     const data_name = new URLSearchParams();
     data_name.append('table_name', JSON.stringify(context.nextTicketName));
 
-    fetch('http://localhost:8000' + '/api/bord', {
+    fetch(server_url + '/api/bord', {
       method: "POST",
       credentials: "include",
       body: data_name
@@ -59,7 +60,7 @@ function RestaurantLayout(props) {
   const saveLayout = (e) => {
     const data = new URLSearchParams();
     data.append('bords', JSON.stringify(context.tablesCoords));
-    fetch('http://localhost:8000' + '/api/bord', {
+    fetch(server_url + '/api/bord', {
       method: "PUT",
       credentials: "include",
       body: data

@@ -2,8 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import TicketTimer from "../components/TicketTimer";
 
-
-
 function AllTickets() {
   const [tick, setTick] = useState(0);
   const context = useContext(AppContext);
