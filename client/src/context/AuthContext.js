@@ -20,7 +20,7 @@ function AuthContextProvider(props) {
 
   const checkLogin = () => {
     cookieParser().user_id ? setLoggedIn(true) : setLoggedIn(false);
-    if(loggedIn) {
+    if(cookieParser().user_id) {
       setRole(cookieParser().role);
       setUser_id(cookieParser().user_id);
       setRealname(cookieParser().realname);

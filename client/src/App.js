@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     auth.checkLogin();
-  
+    console.log('app useeffect');
     context.getRestaurantName();
 
   }, []);
@@ -35,6 +35,7 @@ function App() {
 
 
             {auth.loggedIn ?
+             auth.role == 'admin' ? 
             <div>
                 <div className="logo-container">
               <h3 className="username">{auth.realname}</h3>
@@ -49,7 +50,18 @@ function App() {
                 <li className="nav-links"><Link to="/analytics">Analytics</Link></li>
               </ul>
               </div>
-
+                : 
+                <div>
+                <div className="logo-container">
+              <h3 className="username">{auth.realname}</h3>
+              <h2 className="logo"><Link to="/">{context.restaurantName ? context.restaurantName : ''}</Link></h2>
+                <button className="logout-btn" onClick={auth.logout}>Logout</button>
+                </div>  
+              <ul className="nav">
+                <li className="nav-links"><Link to="/all-tickets">Tickets</Link></li>
+                <li className="nav-links"><Link to="/restaurantlayout">Overview</Link></li>
+              </ul>
+              </div>
               :
               <ul className="nav">
                 <li className="nav-links"><Link to="/login">Login</Link></li>

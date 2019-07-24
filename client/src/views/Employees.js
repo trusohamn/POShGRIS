@@ -19,7 +19,7 @@ function Employees() {
     { type: "text", name: "username", placeholder: "Username" },
     { type: "text", name: "realName", placeholder: "Fullname" },
     { type: "password", name: "password", placeholder: "Password" },
-    { type: "text", name: "role", placeholder: "Role" },
+    { type: "select", name: "role", options: ['admin', 'employee']}
   ];
 
   const afterPost = (res) => {
