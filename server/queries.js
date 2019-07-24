@@ -137,10 +137,11 @@ const getTickets = (req, res) => {
 };
 
 const getTicketsStats = (req, res) => {
-  pool.query(`SELECT t.ticket_id, p.product_id, p.product_name, p.product_price, pt.quantity, t.timestamp, t.user_id 
+  pool.query(`SELECT t.ticket_id, p.product_id, p.product_name, p.product_price, pt.quantity, t.timestamp, t.user_id, u.realName
   FROM TICKET as t 
   INNER JOIN product_in_ticket as pt on pt.ticket_id = t.ticket_id
   INNER JOIN product as p on pt.product_id = p.product_id
+  INNER JOIN users as u on t.user_id = u.user_id
   WHERE t.restaurant_id=$1;`, [req.restaurant_id],(error, results) => {
     if (error) {
       return res.status(401).send(error.message);

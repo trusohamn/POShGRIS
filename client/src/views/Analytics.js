@@ -27,12 +27,14 @@ function Analytics() {
       setDataDate(dataObj);
 
       dataObj = res.results.reduce((acc, item) => {
-        const userPoint = acc.find(dp => dp.name === item.user_id);
+        console.log(item);
+        const userPoint = acc.find(dp => dp.id === item.user_id);
         const ePrice = parseFloat(item.product_price) * parseInt(item.quantity);
         if (userPoint) userPoint.sum += ePrice;
         else {
           acc.push({
-            name: item.user_id,
+            name: item.realname,
+            id: item.user_id, 
             sum: ePrice
           });
         }
