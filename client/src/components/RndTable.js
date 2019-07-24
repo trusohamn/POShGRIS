@@ -35,8 +35,7 @@ function RndTable(props) {
       disableDragging={props.draggable}
     >
       <div onClick={props.createTicket}
-        className="box layout-bord"
-        style={{}}
+        className={state.hasTicket ? "box layout-bord bord-has-ticket" : "box layout-bord"}
       >
         {state.table_name}
 
