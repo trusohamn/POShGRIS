@@ -21,3 +21,35 @@ body {
 }
 
 button:focus {outline:0;}
+
+.logo-container{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  align-items: center;
+  background-color: var(--main-green-color);
+  border: 1px solid var(--main-green-color);
+  margin-bottom: -1px;
+}
+.logo {
+  padding: 0;
+}
+
+.logo a {
+  text-decoration: none;
+  color: white;
+}
+
+.logout-btn {
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  font-weight:bold; 
+  color: white;
+  height: 80%;
+  border-radius: 5px;
+  background-color: red;
+}
+
+.username {
+  color: white;
+}

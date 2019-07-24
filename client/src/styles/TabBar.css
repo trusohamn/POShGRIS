@@ -1,16 +1,21 @@
 .nav-container {
   padding: 0;
   margin: 0;
+  border: 1px solid var(--main-green-color);
+
 }
 .nav {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  padding: 0 15px;
+  justify-content: space-between;
   align-items: center;
   margin: 0;
   padding: 1.3rem 1rem;
   list-style: none;
   background-color: var(--main-green-color);
+  border: none;
+
 }
 
 .nav-links a {

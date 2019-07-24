@@ -71,6 +71,8 @@ const createRestaurant = (req, res) => {
         if (err) return res.status(401).send(error.message);
         res.cookie("user_id", user_id);
         res.cookie("role", role);
+        res.cookie("realname", results.rows[0].realname);
+
         res.status(201).send({
           message: "Restaurant and admin added"
         });
@@ -306,7 +308,7 @@ const login = (req, res) => {
     password
   } = req.body;
   pool.query(
-    'select password, role, user_id from users where username=$1;',
+    'select password, role, user_id, realname from users where username=$1;',
     [username],
     (error, results) => {
       if (error || results.rows.length === 0) {
@@ -317,7 +319,7 @@ const login = (req, res) => {
       if (results.rows[0].password == password) {
         res.cookie("user_id", results.rows[0].user_id);
         res.cookie("role", results.rows[0].role);
-
+        res.cookie("realname", results.rows[0].realname);
         res.status(201).send({
           message: "login successful"
         });

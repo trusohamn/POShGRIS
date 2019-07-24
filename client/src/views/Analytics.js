@@ -48,14 +48,14 @@ function Analytics() {
 
   const renderLineChart = () => (
     <LineChart width={600} height={300} data={dataDate} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-      <Line type="monotone" dataKey="sum" stroke="#8884d8" />
+      <Line type="monotone" dataKey="sum" stroke="#58b368" strokeWidth="3" dot={{stroke: "#0088FE"}}/>
       <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
       <XAxis dataKey="date" stroke="#91a0ce" />
       <YAxis stroke="#91a0ce"/>
       <Tooltip />
     </LineChart>
   );
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ['#0088FE', "#58b368", '#91A0CE', '#FFBB28', '#FF8042'];
   const renderCustomizedLabel = ({
     cx, cy, midAngle, innerRadius, outerRadius, percent, index,
   }) => {
@@ -78,7 +78,7 @@ function Analytics() {
         cy={200}
         labelLine={false}
         label={renderCustomizedLabel}
-        outerRadius={80}
+        outerRadius={150}
         fill="#8884d8"
         dataKey="sum"
       >

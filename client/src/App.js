@@ -35,16 +35,20 @@ function App() {
 
 
             {auth.loggedIn ?
+            <div>
+                <div className="logo-container">
+              <h3 className="username">{auth.realname}</h3>
+              <h2 className="logo"><Link to="/">{context.restaurantName ? context.restaurantName : ''}</Link></h2>
+                <button className="logout-btn" onClick={auth.logout}>Logout</button>
+                </div>  
               <ul className="nav">
-                
-              <li className="nav-links"><Link to="/">{context.restaurantName ? context.restaurantName : ''}</Link></li>
               <li className="nav-links"><Link to="/products">Products</Link></li>
-                <li className="nav-links"><Link to="/all-tickets">All Tickets</Link></li>
-                <li className="nav-links"><Link to="/restaurantlayout">Restaurant Overview</Link></li>
+                <li className="nav-links"><Link to="/all-tickets">Tickets</Link></li>
+                <li className="nav-links"><Link to="/restaurantlayout">Overview</Link></li>
                 <li className="nav-links"><Link to="/employees">Employees</Link></li>
                 <li className="nav-links"><Link to="/analytics">Analytics</Link></li>
-                <li><button onClick={auth.logout}>Logout</button></li>
               </ul>
+              </div>
 
               :
               <ul className="nav">
