@@ -19,15 +19,13 @@ function RestaurantLayout(props) {
   const context = useContext(AppContext);
   const auth = useContext(AuthContext);
   const [isNotDraggable, setIsNotDraggable] = useState(true);
-  // const [tick, setTick] = useState(0);
 
- // setTick(tick + 1);
   const refreshLayout = () => {
     getFetch("/api/tickets", (err, tickets) => {
       fetch(server_url + '/api/bord', {
-          method: "GET",
-          credentials: "include"
-        })
+        method: "GET",
+        credentials: "include"
+      })
         .then(res => res.json())
         .then(res => {
           context.setTablesCoords(res.results.map((table) => {
@@ -39,48 +37,29 @@ function RestaurantLayout(props) {
               hasTicket: !!ticketForTable
             };
           }));
+          setTimeout(() => {
+            console.log('timeout');
+            if (auth.loggedIn) refreshLayout();
+          }, 4000)
+
         })
-        .catch(err =>  {throw(new Error())});
+        .catch(err => { throw (new Error()) });
     })
   }
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if(auth.isLoggedIn){
-  //       console.log('refreshing');
-  //       console.log(auth);
-  //       refreshLayout();
-  //       setTick(tick + 1);
-  //     }
-  //   }, 3000);
-  // }, [tick]);
-
   useEffect(() => {
     refreshLayout();
-
-    const interval = setInterval(() => {
-
-      console.log(auth);
-      try {
-        refreshLayout();
-      } catch {
-        console.log('eeerrrrr');
-        clearInterval(interval)
-      }
-    }, 3000);
-
-  }, []);
-
+  }, [])
 
   const createNewTable = (e) => {
     const data_name = new URLSearchParams();
     data_name.append('table_name', JSON.stringify(context.nextTicketName));
 
     fetch(server_url + '/api/bord', {
-        method: "POST",
-        credentials: "include",
-        body: data_name
-      })
+      method: "POST",
+      credentials: "include",
+      body: data_name
+    })
       .then(res => res.json())
       .then(res => {
 
@@ -97,10 +76,10 @@ function RestaurantLayout(props) {
     const data = new URLSearchParams();
     data.append('bords', JSON.stringify(context.tablesCoords));
     fetch(server_url + '/api/bord', {
-        method: "PUT",
-        credentials: "include",
-        body: data
-      })
+      method: "PUT",
+      credentials: "include",
+      body: data
+    })
       .then(res => res.json())
       .then(res => {
         setIsNotDraggable(true);
@@ -118,62 +97,50 @@ function RestaurantLayout(props) {
     props.history.push('/order');
   }
 
-  return ( <
-    div className = "layout-parent" >
+  return (<div className="layout-parent" >
 
     {
       auth.role == 'admin' ?
-      isNotDraggable ?
-      <
-      div className = "btn-container" >
-      <
-      button className = "layout-btn"
-      onClick = {
-        editLayout
-      } > Edit Layout < /button> <
-      /div> :
-      <
-      div className = "btn-container" >
-      <
-      button className = "layout-btn"
-      onClick = {
-        createNewTable
-      } > Add Table < /button> <
-      button className = "layout-btn"
-      onClick = {
-        saveLayout
-      } > Save Layout < /button> <
-      /div> :
-        <
-        div > < /div>
+        isNotDraggable ?
+          <div className="btn-container" >
+            <button className="layout-btn"
+              onClick={
+                editLayout
+              } > Edit Layout </button> </div> :
+          <div className="btn-container" >
+            <button className="layout-btn"
+              onClick={
+                createNewTable
+              } > Add Table </button> <button className="layout-btn"
+                onClick={
+                  saveLayout
+                } > Save Layout </button> </div> :
+        <div> </div>
     }
 
-    <
-    div className = "layout-container"
-    id = "layoutContainer" >
-    {
-      context.tablesCoords.map((res) => {
-        return <RndTable key = {
-          res.table_id
-        }
-        table_id = {
-          res.table_id
-        }
-        draggable = {
-          isNotDraggable
-        }
-        createTicket = {
-          createTicket
-        }
-        />
-      })
-    }
+    <div className="layout-container"
+      id="layoutContainer" >
+      {
+        context.tablesCoords.map((res) => {
+          return <RndTable key={
+            res.table_id
+          }
+            table_id={
+              res.table_id
+            }
+            draggable={
+              isNotDraggable
+            }
+            createTicket={
+              createTicket
+            }
+          />
+        })
+      }
 
-    <
-    /div>
+    </div>
 
-    <
-    /div>
+  </div>
   )
 }
 
