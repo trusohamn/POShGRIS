@@ -95,9 +95,7 @@ const getRestaurant= (req, res) => {
 };
 
 const createUser = (req, res) => {
-
   if(req.role != 'admin')return res.status(401).send('no access');
-
   const {
     username,
     password,
@@ -116,7 +114,7 @@ console.log('*********', req.restaurant_id, username, realName, password, role)
 
 const getProducts = (req, res) => {
 
-      pool.query("SELECT * FROM PRODUCT WHERE restaurant_id=$1", [req.restaurant_id], (error, results) => {
+      pool.query("SELECT * FROM PRODUCT WHERE restaurant_id=$1;", [req.restaurant_id], (error, results) => {
         if (error) {
           return res.status(401).send(error.message);
         }
@@ -128,7 +126,7 @@ const getProducts = (req, res) => {
 
 const getTickets = (req, res) => {
 
-  pool.query("SELECT * FROM TICKET WHERE restaurant_id=$1", [req.restaurant_id],(error, results) => {
+  pool.query("SELECT * FROM TICKET WHERE restaurant_id=$1 AND ticket_status='active';", [req.restaurant_id],(error, results) => {
     if (error) {
       return res.status(401).send(error.message);
     }
@@ -288,7 +286,7 @@ const createTicket = (req, res) => {
   } = req.cookies;
 
   pool.query(
-    "INSERT INTO ticket(restaurant_id, user_id, table_id) values  ($1, $2, $3)  RETURNING ticket_id;",
+    "INSERT INTO ticket(restaurant_id, user_id, table_id, ticket_status) values  ($1, $2, $3, 'active')  RETURNING ticket_id;",
     [req.restaurant_id, user_id, table_id],
     (error, results) => {
       if (error) {
@@ -331,6 +329,24 @@ const login = (req, res) => {
     });
 }
 
+const checkoutTicket = (req, res) => {
+ 
+  const ticket_id = req.params.id;
+
+  pool.query(
+    "UPDATE ticket SET ticket_status='inactive' WHERE restaurant_id=$1 AND ticket_id=$2;",
+    [req.restaurant_id, ticket_id],
+    (error, results) => {
+      if (error) {
+        return res.status(401).send(error.message);
+      }
+      res.status(201).send({
+        message: "Ticket update"
+      });
+    }
+  );
+}
+
 const getUsers = (req, res) => {
 
   pool.query("SELECT * FROM USERS WHERE restaurant_id=$1", [req.restaurant_id], (error, results) => {
@@ -359,5 +375,6 @@ module.exports = {
   createUser,
   login,
   getRestaurantIdAndRole,
-  getUsers
+  getUsers,
+  checkoutTicket
 };

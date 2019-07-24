@@ -76,10 +76,10 @@ INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh fr
 INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh noodles', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
 
 
-INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '1 DAY'));
-INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '2 DAY'));
-INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '2 DAY'));
-INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '3 DAY'));
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '1 DAY'), 'active');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '2 DAY'), 'active');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '2 DAY'), 'active');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '3 DAY'), 'active');
 
 INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'Posh pork'), '1', '2');
 INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'Posh chicken'), '2', '2');

@@ -33,6 +33,7 @@ app.get('/api/tickets/stats', db.getTicketsStats);
 app.get('/api/tickets/:id', db.getTicketById);
 app.post('/api/tickets', db.createTicket);
 app.post('/api/tickets/:id', db.addProductsToTicket);
+app.put('/api/tickets/:id', db.checkoutTicket);
 
 
 

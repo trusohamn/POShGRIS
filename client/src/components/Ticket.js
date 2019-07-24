@@ -12,39 +12,59 @@ const Ticket = props => {
     );
   }, []);
 
+  function checkoutHandler(e) {
+    e.preventDefault();
+    console.log(window.location.href)
+  
+    fetch('http://localhost:8000' + `/api/tickets/${ticket_id}`, {
+      method: "PUT",
+      credentials: "include",
+    })
+      .then(res => res.json())
+      .then(res => {
+       console.log(res); 
+       props.history.push('/all-tickets');
+      });
+  }
+
 
   return (
     <div>
       {ticketData ?
-
-        <table className="ticket-table">
-          <tr className="ticket-tr">
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-          </tr>
-          <tbody>
-
-            {ticketData.map(e => {
-
-              return (<tr>
-                <td>{e.product_name}</td>
-                <td>$ {e.product_price}</td>
-                <td>{e.quantity}</td>
-              </tr>);
-            })}
-          </tbody>
-          <tfoot>
-            <tr className="ticket-footer">
-              <td></td>
-              <td >Total: </td>
-              <td>$ {ticketData.reduce((acc, e) => {
-                acc +=  (parseFloat(e.product_price)*parseInt(e.quantity))
-                 return acc;
-              },0)}</td>
+        <div>
+          <table className="ticket-table">
+            <tr className="ticket-tr">
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
             </tr>
-          </tfoot>
-        </table>
+            <tbody>
+
+              {ticketData.map(e => {
+
+                return (<tr>
+                  <td>{e.product_name}</td>
+                  <td>$ {e.product_price}</td>
+                  <td>{e.quantity}</td>
+                </tr>);
+              })}
+            </tbody>
+            <tfoot>
+              <tr className="ticket-footer">
+                <td></td>
+                <td >Total: </td>
+                <td>$ {ticketData.reduce((acc, e) => {
+                  acc += (parseFloat(e.product_price) * parseInt(e.quantity))
+                  return acc;
+                }, 0)}</td>
+              </tr>
+            </tfoot>
+          </table>
+          <div className="send-order-btn-holder">
+            <input type='button' value="Checkout"
+              className="send-order-btn" onClick={checkoutHandler}></input>
+          </div>
+        </div>
         :
         <p>Loading...</p>
       }
