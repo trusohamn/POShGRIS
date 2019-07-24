@@ -8,8 +8,7 @@ function RestaurantLayout(props) {
   const auth = useContext(AuthContext);
   const [isNotDraggable, setIsNotDraggable] = useState(true);
 
-
-  useEffect(() => {
+  const refreshLayout = () => {
     getFetch("/api/tickets", (err, tickets) => {
 
       fetch('http://localhost:8000' + '/api/bord', {
@@ -18,7 +17,7 @@ function RestaurantLayout(props) {
       })
         .then(res => res.json())
         .then(res => {
-          console.log('**********', res)
+          console.log(res)
           context.setTablesCoords(res.results.map((table) => {
             const ticketForTable = tickets.results.find(ticket => {
               return (ticket.table_id == table.table_id);
@@ -26,10 +25,17 @@ function RestaurantLayout(props) {
             return { ...table, hasTicket: !!ticketForTable };
           }));
         });
-      console.log(context.tickets)
     })
+  }
 
+  useEffect(() => {
+    refreshLayout();
+
+    setInterval(() => {
+      refreshLayout();
+    }, 3000);
   }, []);
+
 
   const createNewTable = (e) => {
     const data_name = new URLSearchParams();

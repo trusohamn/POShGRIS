@@ -53,10 +53,10 @@ const Ticket = props => {
               <tr className="ticket-footer">
                 <td></td>
                 <td >Total: </td>
-                <td>$ {ticketData.reduce((acc, e) => {
+                <td>$ {Math.ceil(ticketData.reduce((acc, e) => {
                   acc += (parseFloat(e.product_price) * parseInt(e.quantity))
                   return acc;
-                }, 0)}</td>
+                }, 0) * 100) / 100}</td>
               </tr>
             </tfoot>
           </table>

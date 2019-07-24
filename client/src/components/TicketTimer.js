@@ -24,7 +24,7 @@ const TicketTimer = props => {
   return (
     <Link to={path} className="ticket-links">
       <div className="allTickets-ids">{props.ticket_id}
-        <div>
+        <div className="calculateTime">
           {calculateTime()}
         </div>
       </div>
