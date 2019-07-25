@@ -22,7 +22,7 @@ function Product() {
   return (
     <div>
       <Products isOrderView={false} />
-      <PostForm apiPath="/api/products" inputs={inputs} afterPost={afterPost} />
+      <PostForm apiPath="/api/products" inputs={inputs} afterPost={afterPost} btnValue='Add Product'/>
     </div>
   );
 }

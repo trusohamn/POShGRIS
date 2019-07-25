@@ -33,7 +33,7 @@ function Employees() {
   return (
     <div>
       <div>
-        <PostForm apiPath="/api/users" inputs={inputs} afterPost={afterPost} />
+        <PostForm apiPath="/api/users" inputs={inputs} afterPost={afterPost} btnValue='Add Employee'/>
       </div>
       {users &&
         <div>

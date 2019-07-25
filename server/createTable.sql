@@ -61,32 +61,61 @@ CREATE TABLE bord (
    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
 );
 
-INSERT INTO restaurant(restaurant_name) values ('Frisky pizzas');
-INSERT INTO restaurant(restaurant_name) values ('Posh pizzas');
+INSERT INTO restaurant(restaurant_name) values ('Posh Pig');
 
-INSERT INTO users(username, realName, role, password, restaurant_id) values ('gris', 'The GRIS', 'admin', 'secret', '1');
-INSERT INTO users(username, realName, role, password, restaurant_id) values ('poshgris', 'The Posh GRIS', 'admin', 'secret', '2');
+INSERT INTO users(username, realName, role, password, restaurant_id) values ('marta', 'Marta Trusohamn', 'admin', 'secret', '1');
+INSERT INTO users(username, realName, role, password, restaurant_id) values ('sahin', 'Sahin Aslan', 'admin', 'secret', '1');
+INSERT INTO users(username, realName, role, password, restaurant_id) values ('peter', 'Peter Hansen', 'employee', 'secret', '1');
+INSERT INTO users(username, realName, role, password, restaurant_id) values ('nick', 'Nick Morano', 'employee', 'secret', '1');
+
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh pork', '13.99', '1');
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh chicken', '15.99', '1');
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh shrimp', '19.99', '1');
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh beef', '25.99', '1');
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh frog', '11.99', '1');
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh noodles', '16.99', '1');
+
+INSERT INTO bord(restaurant_id, x, y, table_name) values ('1', 200, 100, 'bar');
+INSERT INTO bord(restaurant_id, x, y, table_name) values ('1', 100, 50, 'kitchen');
+
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '1', (SELECT NOW() - INTERVAL '1 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '2', (SELECT NOW() - INTERVAL '2 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '3', (SELECT NOW() - INTERVAL '2 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '4', (SELECT NOW() - INTERVAL '3 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '1', (SELECT NOW() - INTERVAL '3 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '1', (SELECT NOW() - INTERVAL '4 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '3', (SELECT NOW() - INTERVAL '7 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '2', (SELECT NOW() - INTERVAL '1 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '1', (SELECT NOW() - INTERVAL '6 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '3', (SELECT NOW() - INTERVAL '5 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '4', (SELECT NOW() - INTERVAL '3 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '4', (SELECT NOW() - INTERVAL '6 DAY'), 'inactive');
+INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ('1', '2', '4', (SELECT NOW() - INTERVAL '7 DAY'), 'inactive');
+
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ('1', '1', '2');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ('2', '2', '2');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ('3', '3', '2');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ('4', '4', '2');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ('5', '5', '2');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ('1', '6', '1');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ('2', '7', '2');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ('3', '8', '6');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ('4', '9', '2');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ('5', '10', '4');
+INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ('1', '11', '2');
 
 
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh pork', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh chicken', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh shrimp', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh beef', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh frog', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
-INSERT INTO product(product_name, product_price, restaurant_id) values ('Posh noodles', '13.37', (SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Posh pizzas'));
+INSERT INTO restaurant(restaurant_name) values ('Pizzeria Gris');
 
+INSERT INTO users(username, realName, role, password, restaurant_id) values ('mt', 'Marta Trusohamn', 'admin', 'secret', '2');
+INSERT INTO users(username, realName, role, password, restaurant_id) values ('sa', 'Sahin Aslan', 'admin', 'secret', '2');
+INSERT INTO users(username, realName, role, password, restaurant_id) values ('ph', 'Peter Hansen', 'employee', 'secret', '2');
+INSERT INTO users(username, realName, role, password, restaurant_id) values ('nm', 'Nick Morano', 'employee', 'secret', '2');
 
-INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '1 DAY'), 'active');
-INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '2 DAY'), 'active');
-INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '2 DAY'), 'active');
-INSERT INTO ticket(restaurant_id, table_id, user_id, timestamp, ticket_status) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), '2', (SELECT user_id FROM users WHERE username = 'gris'), (SELECT NOW() - INTERVAL '3 DAY'), 'active');
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Margarita', '7.99', '1');
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Vesuvio', '7.99', '1');
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Capriciosa', '8.99', '1');
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Hawaii', '8.99', '1');
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Svenne Banan', '9.99', '1');
+INSERT INTO product(product_name, product_price, restaurant_id) values ('Kebab', '10.99', '1');
 
-INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'Posh pork'), '1', '2');
-INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'Posh chicken'), '2', '2');
-INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'Posh chicken'), '3', '2');
-INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'Posh chicken'), '4', '2');
-INSERT INTO product_in_ticket(product_id, ticket_id, quantity) values ((SELECT product_id FROM product WHERE product_name = 'Posh chicken'), '1', '2');
-
-
-INSERT INTO bord(restaurant_id, x, y, table_name) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), 200, 100, 'bar');
-INSERT INTO bord(restaurant_id, x, y, table_name) values ((SELECT restaurant_id FROM restaurant WHERE restaurant_name = 'Frisky pizzas'), 100, 50, 'kitchen');

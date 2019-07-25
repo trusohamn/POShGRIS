@@ -11,7 +11,7 @@ function AuthContextProvider(props) {
   const cookieParser = () => {
     const cookieObj = document.cookie.split(';').reduce((acc, item) => {
       const pair = item.split('=');
-      if(pair.length === 2) acc[pair[0].trim()] = pair[1].trim();
+      if (pair.length === 2) acc[pair[0].trim()] = pair[1].trim();
       return acc;
     }, {});
 
@@ -21,17 +21,17 @@ function AuthContextProvider(props) {
 
   const checkLogin = () => {
     cookieParser().user_id ? setLoggedIn(true) : setLoggedIn(false);
-    if(cookieParser().user_id) {
+    if (cookieParser().user_id) {
       setRole(cookieParser().role);
       setUser_id(cookieParser().user_id);
-      setRealname(cookieParser().realname);
+      setRealname(decodeURIComponent(cookieParser().realname));
     }
   }
   const afterLogin = () => {
-    setLoggedIn(true); 
+    setLoggedIn(true);
     setUser_id(cookieParser().user_id);
     setRole(cookieParser().role);
-    setRealname(cookieParser().realname);
+    setRealname(decodeURIComponent(cookieParser().realname));
   }
 
 
@@ -42,14 +42,14 @@ function AuthContextProvider(props) {
     setUser_id(null);
     setRole(null);
     setRealname('');
-    setLoggedIn(false); 
-    
+    setLoggedIn(false);
+
   }
 
   const state = {
     loggedIn,
     user_id,
-    role, 
+    role,
     afterLogin,
     checkLogin,
     logout,
