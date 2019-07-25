@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink, Link, Redirect, Switch } from 'react-router-dom';
 import './styles/App.css';
 import ProductList from './views/ProductList';
 import Signup from './views/Signup';
@@ -39,32 +39,32 @@ function App() {
             <div>
                 <div className="logo-container">
               <h3 className="username">{auth.realname}</h3>
-              <h2 className="logo"><Link to="/">{context.restaurantName ? context.restaurantName : ''}</Link></h2>
+              <h2 className="logo"><NavLink to="/">{context.restaurantName ? context.restaurantName : ''}</NavLink></h2>
                 <button className="logout-btn" onClick={auth.logout}>Logout</button>
                 </div>  
               <ul className="nav">
-              <li className="nav-links"><Link to="/products">Products</Link></li>
-                <li className="nav-links"><Link to="/all-tickets">Tickets</Link></li>
-                <li className="nav-links"><Link to="/restaurantlayout">Overview</Link></li>
-                <li className="nav-links"><Link to="/employees">Employees</Link></li>
-                <li className="nav-links"><Link to="/analytics">Analytics</Link></li>
+              <li className="nav-links"><NavLink to="/products">Products</NavLink></li>
+                <li className="nav-links"><NavLink to="/all-tickets">Tickets</NavLink></li>
+                <li className="nav-links"><NavLink to="/restaurantlayout">Overview</NavLink></li>
+                <li className="nav-links"><NavLink to="/employees">Employees</NavLink></li>
+                <li className="nav-links"><NavLink to="/analytics">Analytics</NavLink></li>
               </ul>
               </div>
                 : 
                 <div>
                 <div className="logo-container">
               <h3 className="username">{auth.realname}</h3>
-              <h2 className="logo"><Link to="/">{context.restaurantName ? context.restaurantName : ''}</Link></h2>
+              <h2 className="logo"><NavLink to="/">{context.restaurantName ? context.restaurantName : ''}</NavLink></h2>
                 <button className="logout-btn" onClick={auth.logout}>Logout</button>
                 </div>  
               <ul className="nav">
-                <li className="nav-links"><Link to="/all-tickets">Tickets</Link></li>
-                <li className="nav-links"><Link to="/restaurantlayout">Overview</Link></li>
+                <li className="nav-links"><NavLink to="/all-tickets">Tickets</NavLink></li>
+                <li className="nav-links"><NavLink to="/restaurantlayout">Overview</NavLink></li>
               </ul>
               </div>
               :
               <ul className="nav">
-                <li className="nav-links"><Link to="/login">Login</Link></li>
+                <li className="nav-links"><NavLink to="/login">Login</NavLink></li>
               </ul>
             }
           </div>
