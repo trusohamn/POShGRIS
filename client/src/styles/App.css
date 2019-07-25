@@ -22,6 +22,12 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+.active {
+  background-color: #E5E7E6;
+  height: 100%;
+  width: 100%;
+}
+
 button:focus {outline:0;}
 
 .logo-container{
@@ -40,16 +46,24 @@ button:focus {outline:0;}
 .logo a {
   text-decoration: none;
   color: white;
+  background-color: transparent;
 }
 
 .logout-btn {
-  padding: 10px 15px;
+  padding: 10px 10px;
   font-size: 1.1rem;
   font-weight:bold; 
   color: white;
   height: 80%;
   border-radius: 5px;
-  background-color: red;
+  background-color: #D60E0A;
+  border:0;
+  margin-right: 20px;
+  margin-top: 5px;
+}
+
+.logout-btn:hover {
+  color: black;
 }
 
 .username {

@@ -2,26 +2,38 @@
   padding: 0;
   margin: 0;
   border: 1px solid var(--main-green-color);
-
 }
+
 .nav {
   display: flex;
   flex-direction: row;
-  padding: 0 15px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 1.3rem 1rem;
+  padding: 0rem 1rem;
   list-style: none;
   background-color: var(--main-green-color);
   border: none;
+  padding:0.75rem;
+}
 
+li.nav-links a {
+  width:100%;
+  box-sizing:border-box;
+  text-decoration: none;
+  color: var(--main-gray-color);
+  font-weight: bold;
+  font-size: 1rem;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .nav-links a {
+  box-sizing:border-box;
   text-decoration: none;
   color: var(--main-gray-color);
   font-weight: bold;
   font-size: 1.2rem;
+  padding:0.8rem 2.5rem 0.8rem 2.55rem;
 }
+
 
