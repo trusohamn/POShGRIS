@@ -2,31 +2,24 @@ import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import TicketTimer from "../components/TicketTimer";
 import { AuthContext } from "../context/AuthContext";
+import {useInterval} from '../utils';
+
 
 function AllTickets() {
   const [tick, setTick] = useState(0);
   const context = useContext(AppContext);
-  const auth = useContext(AuthContext);
 
-
-  const checkLogged = () => {
-    if (auth.loggedIn){
-      setTimeout(() => {
-        console.log('timeout TICKETS', auth.loggedIn);
-        refreshTickets();
-      }, 4000)
-    };
-  }
-
-  const refreshTickets = async() => {
+  const refresh = () => {
     context.getTickets();
-    await checkLogged();
   }
+
+  useInterval(() => {
+    refresh();
+  }, 3000);
 
   useEffect(() => {
-    console.log('use effect')
+    refresh();
     setTick(tick + 1);
-    refreshTickets();
   }, []);
 
   useEffect(() => {

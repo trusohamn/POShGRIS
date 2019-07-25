@@ -1,6 +1,7 @@
 import React, {
   useContext,
-  useState
+  useState,
+  useEffect
 } from "react";
 import RndTable from '../components/RndTable';
 import {
@@ -13,17 +14,15 @@ import {
 import {
   server_url
 } from '../config'
-import {useInterval} from '../utils';
+import { useInterval } from '../utils';
 
 function RestaurantLayout(props) {
   const context = useContext(AppContext);
   const auth = useContext(AuthContext);
   const [editMode, setEditMode] = useState(false);
-  
+
   function refresh() {
-    
     if (editMode) return;
-    console.log('refreshing')
 
     getFetch("/api/tickets", (err, tickets) => {
       fetch(server_url + '/api/bord', {
@@ -48,7 +47,11 @@ function RestaurantLayout(props) {
 
   useInterval(() => {
     refresh();
-  }, 1000);
+  }, 3000);
+
+  useEffect(() => {
+    refresh();
+  }, []);
 
   const createNewTable = (e) => {
     const data_name = new URLSearchParams();
