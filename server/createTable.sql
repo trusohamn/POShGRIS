@@ -117,14 +117,27 @@ INSERT INTO product(product_name, product_price, restaurant_id) values ('Svenne 
 INSERT INTO product(product_name, product_price, restaurant_id) values ('Kebab', '10.99', '2');
 
 
-INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 0, 37.52569580078125, 1);
-INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 300.3199768066406, 48.28123474121094, 2);
+-- INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 0, 37.52569580078125, 1);
+-- INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 300.3199768066406, 48.28123474121094, 2);
+-- INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 402.6958312988281, 346.77227783203125, 10);
+-- INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 600, 250.07382202148438, 4);
+-- INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 600, 44.21018981933594, 3);
+-- INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 0, 700, 8);
+-- INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 159.2615509033203, 504.7559814453125, 9);
+-- INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 600, 700, 6);
+-- INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 158.40005493164062, 201.8931884765625, 11);
+-- INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 600, 492.12225341796875, 5);
+-- INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 295.8090515136719, 700, 7);
+
+
+INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 0, 100, 1);
+INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 300.3199768066406, 100, 2);
 INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 402.6958312988281, 346.77227783203125, 10);
 INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 600, 250.07382202148438, 4);
-INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 600, 44.21018981933594, 3);
+INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 600, 100, 3);
 INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 0, 700, 8);
 INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 159.2615509033203, 504.7559814453125, 9);
 INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 600, 700, 6);
-INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 158.40005493164062, 201.8931884765625, 11);
+INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 158.40005493164062, 250, 11);
 INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 600, 492.12225341796875, 5);
 INSERT INTO bord(restaurant_id, x, y, table_name) values (1, 295.8090515136719, 700, 7);

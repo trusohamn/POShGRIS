@@ -75,7 +75,7 @@ function Analytics() {
       <Pie
         data={dataUser}
         cx={200}
-        cy={200}
+        cy={160}
         labelLine={false}
         label={renderCustomizedLabel}
         outerRadius={150}
@@ -91,9 +91,11 @@ function Analytics() {
     </PieChart>);
 
   return (
-    <div className="flex-container">
-      {dataDate && renderLineChart()}
-      {dataUser && renderPieChart()}
+    <div className="grid-container">
+      <h2 className="graphh">Daily earnings</h2>
+      <div className="graph">{dataDate && renderLineChart()}</div>
+      <h2 className="pieh">Earnings per employee</h2>
+      <div className="pie">{dataUser && renderPieChart()}</div>
     </div>
   );
 }

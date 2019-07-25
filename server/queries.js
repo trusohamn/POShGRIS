@@ -35,11 +35,11 @@ const getRestaurantIdAndRole = (req, res, next) => {
   )
 }
 
-const queryCreateUser = (restaurant_id, username, realName, password, role, cb) => {
-  console.log(restaurant_id, username, realName, password, role);
+const queryCreateUser = (restaurant_id, username, realname, password, role, cb) => {
+  console.log(restaurant_id, username, realname, password, role);
   pool.query(
-    "INSERT INTO users (restaurant_id, username, realName, password, role) values ($1, $2, $3, $4, $5) RETURNING user_id;",
-    [restaurant_id, username, realName, password, role],
+    "INSERT INTO users (restaurant_id, username, realname, password, role) values ($1, $2, $3, $4, $5) RETURNING user_id;",
+    [restaurant_id, username, realname, password, role],
     (error, results) => {
       if (error) {
         console.log(error);
@@ -54,7 +54,7 @@ const createRestaurant = (req, res) => {
     restaurant_name,
     username,
     password,
-    realName
+    realname
   } = req.body;
   const role = 'admin';
 
@@ -68,11 +68,11 @@ const createRestaurant = (req, res) => {
       }
       const restaurant_id = results.rows[0].restaurant_id;
 
-      queryCreateUser(restaurant_id, username, realName, password, role, (err, user_id) => {
+      queryCreateUser(restaurant_id, username, realname, password, role, (err, user_id) => {
         if (err) return res.status(401).send(error.message);
         res.cookie("user_id", user_id);
         res.cookie("role", role);
-        res.cookie("realname", results.rows[0].realname);
+        res.cookie("realname", realname);
 
         res.status(201).send({
           message: "Restaurant and admin added"
@@ -101,10 +101,10 @@ const createUser = (req, res) => {
     username,
     password,
     role,
-    realName
+    realname
   } = req.body;
-console.log('*********', req.restaurant_id, username, realName, password, role)
-  queryCreateUser(req.restaurant_id, username, realName, password, role, (err, user_id) => {
+console.log('*********', req.restaurant_id, username, realname, password, role)
+  queryCreateUser(req.restaurant_id, username, realname, password, role, (err, user_id) => {
     if (err) return res.status(401).send(err.message);
     res.status(201).send({
       message: "User added"
@@ -138,7 +138,7 @@ const getTickets = (req, res) => {
 };
 
 const getTicketsStats = (req, res) => {
-  pool.query(`SELECT t.ticket_id, p.product_id, p.product_name, p.product_price, pt.quantity, t.timestamp, t.user_id, u.realName
+  pool.query(`SELECT t.ticket_id, p.product_id, p.product_name, p.product_price, pt.quantity, t.timestamp, t.user_id, u.realname
   FROM TICKET as t 
   INNER JOIN product_in_ticket as pt on pt.ticket_id = t.ticket_id
   INNER JOIN product as p on pt.product_id = p.product_id

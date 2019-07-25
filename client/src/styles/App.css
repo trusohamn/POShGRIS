@@ -72,3 +72,51 @@ button:focus {outline:0;}
   margin-top: 15px;
   font-size: 1.5rem;
 }
+
+
+
+.pie {
+ grid-area:pie; 
+ display:flex; 
+ justify-content: center; 
+ padding:0;
+ position: 
+}
+
+.graph {
+ grid-area: graph; 
+ display:flex; 
+ justify-content: center;
+ margin-top: 0;
+}
+
+.graphh {
+  grid-area:gh;
+  padding: 0;
+  margin: 0 auto;
+  color: #58b368;
+}
+
+.pieh {
+  grid-area:ph;
+  padding: 0;
+  margin: 0 auto;
+  color: #58b368;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas: 
+            ".   .   ."
+            ".   gh   ."
+            ". graph ."
+            ".   ph  ."
+            ".  pie  ."
+            ".   .   ."
+            ;
+
+  grid-template-rows: repeat(100px);
+  grid-template-columns: 50px 1fr 50px;
+  width: 100vw;
+  height: 90vh;
+}

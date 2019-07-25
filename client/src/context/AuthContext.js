@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 export const AuthContext = React.createContext({});
 
 function AuthContextProvider(props) {
@@ -28,6 +28,7 @@ function AuthContextProvider(props) {
     }
   }
   const afterLogin = () => {
+    console.log(cookieParser());
     setLoggedIn(true);
     setUser_id(cookieParser().user_id);
     setRole(cookieParser().role);
