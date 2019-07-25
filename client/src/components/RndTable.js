@@ -31,7 +31,7 @@ function RndTable(props) {
       minHeight={100}
       bounds="parent"
       enableResizing={false}
-      dragGrid={[10, 10]}
+      // dragGrid={[20, 20]}
       disableDragging={props.draggable}
     >
       <div onClick={props.createTicket}

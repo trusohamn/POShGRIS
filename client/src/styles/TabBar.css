@@ -22,8 +22,7 @@ li.nav-links a {
   box-sizing:border-box;
   text-decoration: none;
   color: var(--main-gray-color);
-  font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.1rem;
   -webkit-tap-highlight-color: transparent;
 }
 

@@ -223,8 +223,8 @@ const addProductsToTicket = (req, res) => {
 
 const createBord = (req, res) => {
   const table_name = req.body.table_name;
-  const x = 0;
-  const y = 0;
+  const x = 10;
+  const y = 10;
   console.log('createBord server: ', table_name);
   pool.query(
     "INSERT INTO bord(restaurant_id, x, y, table_name) values  ($1, $2, $3, $4)  RETURNING table_id;",
