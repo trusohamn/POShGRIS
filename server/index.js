@@ -6,7 +6,9 @@ const db = require('./queries');
 const cookie_parser = require('cookie-parser');
 
 const corsOption = {
-  origin: process.env.NODE_ENV === 'production' ? 'https://trusohamn.github.io/POShGRIS/' : 'http://localhost:3000',
+  origin: function (origin, callback) {
+      callback(null, true)
+    },// process.env.NODE_ENV === 'production' ? 'https://trusohamn.github.io/POShGRIS/' : 'http://localhost:3000',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   exposedHeaders: ['x-auth-token']

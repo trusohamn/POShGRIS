@@ -22,8 +22,8 @@ function RndTable(props) {
         context.setTablesCoords(modifiedTablesCoord);
       }}
       default={{
-        x: context.tablesCoords.find(e => e.table_id == props.table_id).x,
-        y: context.tablesCoords.find(e => e.table_id == props.table_id).y,
+        x: Number(context.tablesCoords.find(e => e.table_id == props.table_id).x),
+        y: Number(context.tablesCoords.find(e => e.table_id == props.table_id).y),
         width: 100,
         height: 100
       }}

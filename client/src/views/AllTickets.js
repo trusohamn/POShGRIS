@@ -8,14 +8,19 @@ function AllTickets() {
   const context = useContext(AppContext);
   const auth = useContext(AuthContext);
 
-  const refreshTickets = () => {
-    context.getTickets();
-    if (auth.loggedIn) {
+
+  const checkLogged = () => {
+    if (auth.loggedIn){
       setTimeout(() => {
         console.log('timeout TICKETS', auth.loggedIn);
         refreshTickets();
       }, 4000)
-    }
+    };
+  }
+
+  const refreshTickets = async() => {
+    context.getTickets();
+    await checkLogged();
   }
 
   useEffect(() => {

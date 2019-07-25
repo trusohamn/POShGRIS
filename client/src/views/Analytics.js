@@ -91,7 +91,7 @@ function Analytics() {
     </PieChart>);
 
   return (
-    <div>
+    <div className="flex-container">
       {dataDate && renderLineChart()}
       {dataUser && renderPieChart()}
     </div>

@@ -1,6 +1,5 @@
 import React, {
   useContext,
-  useEffect,
   useState
 } from "react";
 import RndTable from '../components/RndTable';
@@ -14,13 +13,18 @@ import {
 import {
   server_url
 } from '../config'
+import {useInterval} from '../utils';
 
 function RestaurantLayout(props) {
   const context = useContext(AppContext);
   const auth = useContext(AuthContext);
-  const [isNotDraggable, setIsNotDraggable] = useState(true);
+  const [editMode, setEditMode] = useState(false);
+  
+  function refresh() {
+    
+    if (editMode) return;
+    console.log('refreshing')
 
-  const refreshLayout = () => {
     getFetch("/api/tickets", (err, tickets) => {
       fetch(server_url + '/api/bord', {
         method: "GET",
@@ -37,19 +41,14 @@ function RestaurantLayout(props) {
               hasTicket: !!ticketForTable
             };
           }));
-          setTimeout(() => {
-            console.log('timeout');
-            if (auth.loggedIn) refreshLayout();
-          }, 4000)
-
         })
         .catch(err => { throw (new Error()) });
     })
   }
 
-  useEffect(() => {
-    refreshLayout();
-  }, [])
+  useInterval(() => {
+    refresh();
+  }, 1000);
 
   const createNewTable = (e) => {
     const data_name = new URLSearchParams();
@@ -82,16 +81,12 @@ function RestaurantLayout(props) {
     })
       .then(res => res.json())
       .then(res => {
-        setIsNotDraggable(true);
+        setEditMode(false);
       });
   }
 
-  const editLayout = (e) => {
-    setIsNotDraggable(false);
-  }
-
   const createTicket = (e) => {
-    if (!isNotDraggable) return;
+    if (editMode) return;
     const table_id = context.tablesCoords.find(table => table.table_name == e.target.innerHTML);
     context.setActiveTable(table_id);
     props.history.push('/order');
@@ -101,11 +96,11 @@ function RestaurantLayout(props) {
 
     {
       auth.role == 'admin' ?
-        isNotDraggable ?
+        !editMode ?
           <div className="btn-container" >
             <button className="layout-btn"
               onClick={
-                editLayout
+                () => setEditMode(true)
               } > Edit Layout </button> </div> :
           <div className="btn-container" >
             <button className="layout-btn"
@@ -129,7 +124,7 @@ function RestaurantLayout(props) {
               res.table_id
             }
             draggable={
-              isNotDraggable
+              !editMode
             }
             createTicket={
               createTicket
@@ -143,6 +138,7 @@ function RestaurantLayout(props) {
   </div>
   )
 }
+
 
 
 export default RestaurantLayout;
