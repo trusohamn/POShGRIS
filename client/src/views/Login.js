@@ -24,7 +24,7 @@ function Login(props) {
   }
 
   return (
-    <div className="form-holder">
+    <div className="form-holder-login">
       <PostForm apiPath="/api/login" inputs={inputs} afterPost={afterPost}/>
       <button className="signUpButton"><Link to="/signup">Create an account</Link></button>
 
