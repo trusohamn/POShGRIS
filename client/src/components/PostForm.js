@@ -50,7 +50,7 @@ function PostForm(props) {
 
           })}
         </div>
-        <input type='submit' className="submitButton" value="Login"></input>
+        <button type='submit' className="submitButton" >{props.btnValue || 'Login'}</button>
       </div>
     </form>
   );

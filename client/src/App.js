@@ -64,7 +64,7 @@ function App() {
               </div>
               :
               <ul className="nav">
-                <li className="nav-links"><NavLink to="/login">Login</NavLink></li>
+                <li className="nav-links-login login-btn"><NavLink to="/login">Login</NavLink></li>
               </ul>
             }
           </div>
@@ -84,6 +84,7 @@ function App() {
             <Switch>
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
+              <Route path="/"component={Login}/>
             </Switch>
 
           }

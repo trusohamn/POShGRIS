@@ -23,7 +23,7 @@ function Signup(props) {
 
   return (
     <div>
-      <PostForm apiPath="/api/restaurants" inputs={inputs} afterPost={afterPost}  />
+      <PostForm apiPath="/api/restaurants" inputs={inputs} afterPost={afterPost} btnValue='Signup' />
     </div>
   );
 }

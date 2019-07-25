@@ -13,6 +13,7 @@
   justify-content: space-around;
   align-items: center;
   height: 190px;
+  padding:2.5rem;
 }
 
 
@@ -56,13 +57,12 @@
 }
 
 .form-holder-login {
-  margin-top:3vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing:border-box;
-  padding:2rem;
+  padding:1rem;
 }
 
 .signUpButton {
