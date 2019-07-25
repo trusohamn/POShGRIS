@@ -90,8 +90,8 @@ function RestaurantLayout(props) {
 
   const createTicket = (e) => {
     if (editMode) return;
-    const table_id = context.tablesCoords.find(table => table.table_name == e.target.innerHTML);
-    context.setActiveTable(table_id);
+    const tableObj= context.tablesCoords.find(table => table.table_name == e.target.innerHTML);
+    context.setActiveTable(tableObj);
     props.history.push('/order');
   }
 

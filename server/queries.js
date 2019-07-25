@@ -127,7 +127,7 @@ const getProducts = (req, res) => {
 
 const getTickets = (req, res) => {
 
-  pool.query("SELECT * FROM TICKET WHERE restaurant_id=$1 AND ticket_status='active';", [req.restaurant_id],(error, results) => {
+  pool.query("SELECT * FROM TICKET as t inner join bord as b on t.table_id=b.table_id WHERE b.restaurant_id=$1 AND t.ticket_status='active';", [req.restaurant_id],(error, results) => {
     if (error) {
       return res.status(401).send(error.message);
     }

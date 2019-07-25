@@ -36,7 +36,7 @@ function AllTickets() {
           let time = date.getTime();
           const timestamp = Math.round(time / 1000) * 1000;
           return (
-            <TicketTimer ticket_id={e.ticket_id} timestamp={timestamp} />
+            <TicketTimer ticket_id={e.ticket_id} table_name={e.table_name} timestamp={timestamp} />
           );
         })
         : null}

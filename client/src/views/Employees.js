@@ -17,7 +17,7 @@ function Employees() {
 
   const inputs = [
     { type: "text", name: "username", placeholder: "Username" },
-    { type: "text", name: "realName", placeholder: "Fullname" },
+    { type: "text", name: "realname", placeholder: "Fullname" },
     { type: "password", name: "password", placeholder: "Password" },
     { type: "select", name: "role", options: ['admin', 'employee']}
   ];

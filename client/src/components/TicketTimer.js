@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { getFetch } from "../context/AppContext";
+import React from "react";
 import { Link } from 'react-router-dom';
 
 const TicketTimer = props => {
@@ -23,7 +22,7 @@ const TicketTimer = props => {
 
   return (
     <Link to={path} className="ticket-links">
-      <div className="allTickets-ids">{props.ticket_id}
+      <div className="allTickets-ids">Table {props.table_name}
         <div className="calculateTime">
           {calculateTime()}
         </div>
